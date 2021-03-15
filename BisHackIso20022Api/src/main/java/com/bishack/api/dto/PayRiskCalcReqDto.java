@@ -9,11 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PayRiskCalcReqDto {
-	// TODO: if we have a good way to find bic then we can populate this automatically. But for now
-	// let's just take it from our API consumer.
-	@JsonProperty("bic")
-	private String bic;
-	
+	@JsonProperty("institutionName")
+	private String institutionName;
 	@JsonProperty("creditorAccount")
 	private String creditorAccount;
 	@JsonProperty("creditorName")
@@ -22,14 +19,14 @@ public class PayRiskCalcReqDto {
 	@JsonProperty("uuid")
 	private String uuid = UUID.randomUUID().toString();
 
-	@JsonProperty("bic")
-	public String getBic() {
-		return bic;
+	@JsonProperty("institutionName")
+	public String getInstitutionName() {
+		return institutionName;
 	}
 
-	@JsonProperty("bic")
-	public void setBic(String bic) {
-		this.bic = bic;
+	@JsonProperty("institutionName")
+	public void setInstitutionName(String institutionName) {
+		this.institutionName = institutionName;
 	}
 
 	@JsonProperty("creditorAccount")
