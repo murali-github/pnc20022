@@ -1,0 +1,30 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false"
+	monitoring="autodetect" dynamicConfig="true">
+
+
+
+	<defaultCache name="DEFAULT_CACHE"
+		maxEntriesLocalHeap="1000" maxEntriesLocalDisk="100" eternal="false"
+		diskSpoolBufferSizeMB="20" timeToIdleSeconds="1500"
+		timeToLiveSeconds="1500" memoryStoreEvictionPolicy="LFU"
+		transactionalMode="off">
+		<persistence strategy="none" />
+	</defaultCache>
+
+	<cache name="SwiftApiPrevalToken" maxEntriesLocalHeap="1000"
+		maxEntriesLocalDisk="100" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="1200" timeToLiveSeconds="1200"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="none" />
+	</cache>
+
+	<cache name="SwiftApiComplianceToken" maxEntriesLocalHeap="1000"
+		maxEntriesLocalDisk="100" eternal="false" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="1200" timeToLiveSeconds="1200"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+		<persistence strategy="none" />
+	</cache>
+
+
+</ehcache>
