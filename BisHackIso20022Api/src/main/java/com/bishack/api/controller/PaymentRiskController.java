@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.PayRiskCalcResDto;
 import com.bishack.api.service.IRiskCalcEngine;
-import com.bishack.api.service.RiskCalcEngine;
-import com.bishack.config.AppProperties;
 
 @Controller
 public class PaymentRiskController {
     private static Logger LOG = LoggerFactory.getLogger(PaymentRiskController.class);
-
+    
     @Autowired
-    private AppProperties appProperties;
+    private IRiskCalcEngine riskCalcEngine;
 
     @PostMapping(path = "/paymentRisk", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -35,8 +33,7 @@ public class PaymentRiskController {
                 return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
             }
 
-            IRiskCalcEngine riskEngine = new RiskCalcEngine();
-            resDto = riskEngine.executeRiskAnalysis(reqDto);
+            resDto = riskCalcEngine.executeRiskAnalysis(reqDto);
 
             return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
         } catch (Exception e) {

@@ -13,14 +13,8 @@ import com.bishack.api.dto.TrxRatingModelRequestDto;
 
 @Service(value = "riskCalcEngine")
 public class RiskCalcEngine implements IRiskCalcEngine {
-
     @Autowired
     private List<IRiskEngineDataAgg> riskEngineDataAggs;
-
-    public RiskCalcEngine() {
-        riskEngineDataAggs = new ArrayList<>();
-        riskEngineDataAggs.add(new SwiftValidationDataAgg());
-    }
 
     @Override
     public PayRiskCalcResDto executeRiskAnalysis(PayRiskCalcReqDto payRiskCalcReqDto) {
