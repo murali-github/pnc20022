@@ -2,9 +2,12 @@ package com.bishack.api.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.TrxRatingModelRequestDto;
 
+@Service
 public class SwiftComplianceDataAgg implements IRiskEngineDataAgg {
 
 	@Override
