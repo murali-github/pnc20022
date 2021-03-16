@@ -1,13 +1,5 @@
-| Language | Framework | Platform | Author |
-| -------- | -------- |--------|--------|
-| Java | Spring | Azure Web App, Virtual Machine| |
-
-
-# Java Spring boot web application
-
-Sample Java Spring Boot web application that you can use to deploy on Azure.
-
-
+## API Documentation
+The OpenAPI v3 documentation can be retrieved via http://localhost:8080/v3/api-docs. Alternatively, the swagger UI can be viewed at http://localhost:8080/swagger-ui.html.
 ## License:
 
 See [LICENSE](LICENSE).
