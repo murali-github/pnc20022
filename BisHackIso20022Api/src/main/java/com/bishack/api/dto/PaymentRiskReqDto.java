@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PayRiskCalcReqDto {
+public class PaymentRiskReqDto {
 	@JsonProperty("institutionName")
 	private String institutionName;
 	@JsonProperty("creditorAccount")

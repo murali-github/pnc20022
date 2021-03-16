@@ -16,6 +16,8 @@ public class TrxRecord {
 	private String institutionId;
 	private String countryCode;
 	private String iban;
+	private String bankId;
+	private String bankIdCode;
 
 	public String getId() {
 		return id;
@@ -87,6 +89,22 @@ public class TrxRecord {
 
 	public void setIban(String iban) {
 		this.iban = iban;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getBankIdCode() {
+		return bankIdCode;
+	}
+
+	public void setBankIdCode(String bankIdCode) {
+		this.bankIdCode = bankIdCode;
 	}
 
 }

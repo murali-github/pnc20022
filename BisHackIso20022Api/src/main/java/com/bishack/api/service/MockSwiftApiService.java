@@ -43,7 +43,7 @@ public class MockSwiftApiService implements ISwiftApiService {
 	}
 
 	@Override
-	public String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto) throws Exception {
+	public String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto, String bic) throws Exception {
 		String response = null;
 
 		return response;

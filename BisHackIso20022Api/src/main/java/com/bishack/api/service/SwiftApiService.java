@@ -56,7 +56,7 @@ public class SwiftApiService implements ISwiftApiService {
 	}
 
 	@Override
-	public String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto) throws Exception {
+	public String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto, String bic) throws Exception {
 		String response = null;
 		
 
@@ -68,6 +68,7 @@ public class SwiftApiService implements ISwiftApiService {
 				HttpHeaders headers = new HttpHeaders();
 				headers.add("Authorization", "Bearer " + swiftTokenDto.getAccess_token());
 				headers.setContentType(MediaType.APPLICATION_JSON);
+				headers.add("x-bic", bic);
 
 				HttpEntity<SwiftPrevalAcVerifyDto> request = new HttpEntity<>(swiftPrevalAcVerifyDto, headers);
 

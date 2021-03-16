@@ -60,7 +60,7 @@ public class SwiftApiController {
     
     @PostMapping(path="/swiftPrevalAcVerify", headers={"Accept=application/json", "Content-Type=application/json"})
 	public ResponseEntity<String> swiftPrevalAcVerify(@RequestBody Optional<SwiftPrevalAcVerifyDto>  swiftPrevalAcFormatDto) throws Exception {      	
-    	String respone= swiftApiService.swiftPrevalAcVerify(swiftPrevalAcFormatDto.get());
+    	String respone= swiftApiService.swiftPrevalAcVerify(swiftPrevalAcFormatDto.get(), null); // TODO this won't work unless we pass bic. Not sure if we need this class.
 		return new ResponseEntity<String>(respone, HttpStatus.OK);
 	}
     
