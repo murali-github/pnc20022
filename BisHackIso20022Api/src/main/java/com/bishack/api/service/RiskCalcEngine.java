@@ -14,34 +14,34 @@ import com.bishack.api.dto.TrxRatingModelRequestDto;
 @Service(value = "riskCalcEngine")
 public class RiskCalcEngine implements IRiskCalcEngine {
 
-	@Autowired
-	private List<IRiskEngineDataAgg> riskEngineDataAggs;
+    @Autowired
+    private List<IRiskEngineDataAgg> riskEngineDataAggs;
 
-	public RiskCalcEngine() {
-		riskEngineDataAggs = new ArrayList<>();
-		riskEngineDataAggs.add(new SwiftValidationDataAgg());
-	}
+    public RiskCalcEngine() {
+        riskEngineDataAggs = new ArrayList<>();
+        riskEngineDataAggs.add(new SwiftValidationDataAgg());
+    }
 
-	@Override
-	public PayRiskCalcResDto executeRiskAnalysis(PayRiskCalcReqDto payRiskCalcReqDto) {
-		PayRiskCalcResDto payRiskCalcResDto = null;
+    @Override
+    public PayRiskCalcResDto executeRiskAnalysis(PayRiskCalcReqDto payRiskCalcReqDto) {
+        PayRiskCalcResDto payRiskCalcResDto = null;
 
-		List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<TrxRatingModelRequestDto>();
-		if (riskEngineDataAggs != null) {
-			for (IRiskEngineDataAgg riskEngineDataAgg : riskEngineDataAggs) {
-				List<TrxRatingModelRequestDto> trxRatingModelRequests = riskEngineDataAgg
-						.getModelInputData(payRiskCalcReqDto);
-				trxRatingModelRequestDtos.addAll(trxRatingModelRequests);
-			}
+        List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<TrxRatingModelRequestDto>();
+        if (riskEngineDataAggs != null) {
+            for (IRiskEngineDataAgg riskEngineDataAgg : riskEngineDataAggs) {
+                List<TrxRatingModelRequestDto> trxRatingModelRequests = riskEngineDataAgg
+                        .getModelInputData(payRiskCalcReqDto);
+                trxRatingModelRequestDtos.addAll(trxRatingModelRequests);
+            }
 
-			if (CollectionUtils.isNotEmpty(trxRatingModelRequestDtos)) {
+            if (CollectionUtils.isNotEmpty(trxRatingModelRequestDtos)) {
 
-				// Make a call to Andrews' Risk Engine and get the reponse and convert that into
-				// payRiskCalcReqDto
-			}
-		}
+                // Make a call to Andrews' Risk Engine and get the reponse and convert that into
+                // payRiskCalcReqDto
+            }
+        }
 
-		return payRiskCalcResDto;
-	}
+        return payRiskCalcResDto;
+    }
 
 }

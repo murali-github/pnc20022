@@ -17,28 +17,27 @@ import com.bishack.config.AppProperties;
 
 @Controller
 public class PaymentRiskController {
-	@Autowired
-	private AppProperties appProperties;
+    @Autowired
+    private AppProperties appProperties;
 
-	@PostMapping(path = "/paymentRisk", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public ResponseEntity<PayRiskCalcResDto> calcPaymentRisk(@RequestBody PayRiskCalcReqDto reqDto) {
-		PayRiskCalcResDto resDto = null;
-		try {
-			// Only accept these two hard-coded source accounts for demo.
-			if (!"500105170123456789".equals(reqDto.getCreditorAccount())
-					&& !"100000010123123123".equals(reqDto.getCreditorAccount())) {
-				return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
-			}
+    @PostMapping(path = "/paymentRisk", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<PayRiskCalcResDto> calcPaymentRisk(@RequestBody PayRiskCalcReqDto reqDto) {
+        PayRiskCalcResDto resDto = null;
+        try {
+            // Only accept these two hard-coded source accounts for demo.
+            if (!"500105170123456789".equals(reqDto.getCreditorAccount())
+                    && !"100000010123123123".equals(reqDto.getCreditorAccount())) {
+                return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
+            }
 
-			IRiskCalcEngine riskEngine = new RiskCalcEngine();
-			resDto = riskEngine.executeRiskAnalysis(reqDto);
+            IRiskCalcEngine riskEngine = new RiskCalcEngine();
+            resDto = riskEngine.executeRiskAnalysis(reqDto);
 
-			return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+            return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	
 }
