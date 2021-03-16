@@ -1,12 +1,11 @@
 package com.bishack.api.service;
 
 import java.util.List;
-
-import com.bishack.api.entity.Customer;
+import com.bishack.api.entity.TxRecord;
 
 public interface IPersistenceService {
 	
-	List<Customer> getAllCustomers();
+	List<TxRecord> getAllRecords();
 	
-	String saveCustomer(Customer customer);
+	TxRecord saveRecord(TxRecord record);
 }
