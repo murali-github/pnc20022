@@ -36,7 +36,7 @@ public class PaymentRiskController {
 		PayRiskCalcResDto resDto = null;
 		try {
 			// Only accept this hard-coded source account
-			if (reqDto.getCreditorAccount() != "123110040000109876543210") {
+			if (!"123110040000109876543210".equals(reqDto.getCreditorAccount())) {
 				return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
 			}
 
