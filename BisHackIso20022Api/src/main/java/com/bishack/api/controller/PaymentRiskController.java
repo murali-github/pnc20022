@@ -1,5 +1,7 @@
 package com.bishack.api.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +19,8 @@ import com.bishack.config.AppProperties;
 
 @Controller
 public class PaymentRiskController {
+    private static Logger LOG = LoggerFactory.getLogger(PaymentRiskController.class);
+
     @Autowired
     private AppProperties appProperties;
 
@@ -36,6 +40,7 @@ public class PaymentRiskController {
 
             return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
         } catch (Exception e) {
+            LOG.error("Encountered exception: {}", e);
             return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
