@@ -1,0 +1,10 @@
+{
+    "status": 
+    {
+        "http": 200,
+        "code": "REDA.API.IBWF",
+        "user_message": "Corresponding IBAN found",
+        "more_info": "ISO 13616"
+    },
+    "iban": "DE04500700100532013000"
+}
