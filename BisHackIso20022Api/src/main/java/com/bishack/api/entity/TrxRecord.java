@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class TxRecord {
+public class TrxRecord {
 	@Id
 	String id;
 	private String institutionName;
@@ -15,6 +15,7 @@ public class TxRecord {
 	private String amount;
 	private String institutionId;
 	private String countryCode;
+	private String iban;
 
 	public String getId() {
 		return id;
@@ -78,6 +79,14 @@ public class TxRecord {
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
 
 }
