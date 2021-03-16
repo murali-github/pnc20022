@@ -1,6 +1,8 @@
 package com.bishack.api.service;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +25,7 @@ import com.bishack.api.dto.SwiftTokenDto;
 
 @Service(value = "swiftApiService")
 public class SwiftApiService implements ISwiftApiService {
+	private static final Logger LOG = LoggerFactory.getLogger(SwiftApiService.class);
 
 	@Autowired
 	private RestTemplate swiftApiRestTemplate;
@@ -48,6 +51,7 @@ public class SwiftApiService implements ISwiftApiService {
 				ResponseEntity<String> responseEnt = swiftApiRestTemplate.exchange(
 						"https://sandbox.swift.com/swift-preval-pilot/v2/payment/account-format", HttpMethod.POST,
 						request, String.class);
+				LOG.debug("Swift Preval Account Format returned status code" + responseEnt.getStatusCode());
 				response = responseEnt.getBody();
 			}
 		}
@@ -75,7 +79,9 @@ public class SwiftApiService implements ISwiftApiService {
 				ResponseEntity<String> responseEnt = swiftApiRestTemplate.exchange(
 						"https://sandbox.swift.com/swift-preval-pilot/v2/accounts/verification", HttpMethod.POST,
 						request, String.class);
-				response = responseEnt.getBody();
+				String responseBody = responseEnt.getBody();
+				LOG.debug("Swift Preval Account returned status code {} - Content: {}", responseEnt.getStatusCode(), responseBody);
+				response = responseBody;
 			}
 		}
 
