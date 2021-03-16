@@ -76,10 +76,11 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         SwiftPrevalAcVerifyDto dto = new SwiftPrevalAcVerifyDto();
         dto.setCreditorName(record.getCreditorName());
         // Request is in the scope of the payment initiation
-        dto.setContext("PAYM");
+        dto.setContext("BENR");
         dto.setCreditorAccount(record.getCreditorAccount());
         dto.setCreditorName(record.getCreditorName());
-        return swiftApiService.swiftPrevalAcVerify(dto, record.getBankIdCode());
+        dto.setCorrelationIdentifier("SCENARIO1-CORRID-001");
+        return swiftApiService.swiftPrevalAcVerify(dto, "916a97d-a699-4f20-b8c2-2b07e2684a27");
     }
 
 }
