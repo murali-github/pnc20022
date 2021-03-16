@@ -3,6 +3,9 @@ package com.bishack.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Arrays;
 import org.springframework.stereotype.Service;
 
 import com.bishack.api.dto.PayRiskCalcReqDto;
@@ -13,10 +16,43 @@ public class SwiftComplianceDataAgg implements IRiskEngineDataAgg {
 
 	@Override
 	public List<TrxRatingModelRequestDto> getModelInputData(PayRiskCalcReqDto payRiskCalcReqDto) {
-		List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<>();
+		List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<TrxRatingModelRequestDto>();
+		TrxRatingModelRequestDto trxRatingModelRequestDto = null;
 		
-		// Call Swift Prevalidation and based on the response return the attributes 
-		//{"category":"SWIFT_COMPLIANCE","attrName":"SRC_INST_RISK","value":"LOW"},{"category":"SWIFT_COMPLIANCE","attrName":"BENFICIARY_INST_RISK","value":"LOW"}
+		if (payRiskCalcReqDto != null) {
+			if (StringUtils.isNotBlank(payRiskCalcReqDto.getCreditorAccount())) {
+				trxRatingModelRequestDto = new TrxRatingModelRequestDto();
+				trxRatingModelRequestDtos.add(trxRatingModelRequestDto);
+				trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_BENE_AC_VERIFICATION);
+				trxRatingModelRequestDto.setCategory(IServiceConstants.CAT_SWIFT_COMPLIANCE);
+				if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_LOW, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
+				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_MEDIUM, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_MEDIUM);
+				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_HIGH, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_HIGH);
+				} else {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
+				}
+				
+			}
+			if (StringUtils.isNotBlank(payRiskCalcReqDto.getDebitorAccount())) {
+				trxRatingModelRequestDto = new TrxRatingModelRequestDto();
+				trxRatingModelRequestDtos.add(trxRatingModelRequestDto);
+				trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_SRC_AC_VERIFICATION);
+				trxRatingModelRequestDto.setCategory(IServiceConstants.CAT_SWIFT_COMPLIANCE);
+				if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_LOW, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
+				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_MEDIUM, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_MEDIUM);
+				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_HIGH, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_HIGH);
+				} else {
+					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
+				}
+				
+			}
+		}
 		
 		return trxRatingModelRequestDtos;
 	}

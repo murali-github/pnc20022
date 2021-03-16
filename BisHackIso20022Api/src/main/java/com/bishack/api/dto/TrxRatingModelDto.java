@@ -89,14 +89,14 @@ public class TrxRatingModelDto extends BaseDto {
 		trxRatingModelRequestDto = new TrxRatingModelRequestDto();
 		trxRatingModelRequestDtos.add(trxRatingModelRequestDto);
 		trxRatingModelRequestDto.setCategory(IServiceConstants.CAT_SWIFT_VALIDATION);
-		trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_AC_FORMAT_VALIDATION);		
+		trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_SRC_AC_FORMAT_VALIDATION);		
 		trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
 		
 		
 		trxRatingModelRequestDto = new TrxRatingModelRequestDto();
 		trxRatingModelRequestDtos.add(trxRatingModelRequestDto);				
 		trxRatingModelRequestDto.setCategory(IServiceConstants.CAT_SWIFT_VALIDATION);
-		trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_AC_VERIFICATION);		
+		trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_SRC_AC_VERIFICATION);		
 		trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
 		
 		trxRatingModelRequestDto = new TrxRatingModelRequestDto();

@@ -20,6 +20,9 @@ public class PayRiskCalcReqDto {
 	
 	@JsonProperty("uuid")
 	private String uuid = UUID.randomUUID().toString();
+	
+	@JsonProperty("debitorAccount")
+	private String debitorAccount;
 
 	@JsonProperty("institutionName")
 	public String getInstitutionName() {
@@ -69,6 +72,14 @@ public class PayRiskCalcReqDto {
 	@JsonProperty("amount")
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+
+	public String getDebitorAccount() {
+		return debitorAccount;
+	}
+
+	public void setDebitorAccount(String debitorAccount) {
+		this.debitorAccount = debitorAccount;
 	}
 	
 	
