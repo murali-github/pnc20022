@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.PayRiskCalcResDto;
 import com.bishack.api.dto.SwiftPrevalAcFormatDto;
-import com.bishack.api.entity.TxRecord;
+import com.bishack.api.entity.TrxRecord;
 import com.bishack.api.service.IPersistenceService;
 import com.bishack.api.service.SwiftApiService;
 import com.bishack.config.AppProperties;
@@ -40,18 +40,19 @@ public class PaymentRiskController {
 				return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
 			}
 
-			TxRecord record = new TxRecord();
+			TrxRecord record = new TrxRecord();
 			record.setCreditorName(reqDto.getCreditorName());
 			record.setCreditorAccount(reqDto.getCreditorAccount());
 			record.setInstitutionName(reqDto.getInstitutionName());
 			record.setUuid(UUID.randomUUID().toString());
 			record.setAmount(reqDto.getAmount());
+			record.setIban("PL94123110040000109876543210");
 			// TODO add prevalidation result stuff to record
 			prevalidateAccountFormat(record);
 
-			TxRecord savedRecord = persistenceService.saveRecord(record);
+			TrxRecord savedRecord = persistenceService.saveRecord(record);
 
-			// TODO this should come from RiskEngine later when it's implemented
+			// TODO populate a TrxRatingModelDto and engage RiskEngine to get response.
 			resDto = new PayRiskCalcResDto();
 			resDto.setRiskFactor("HIGH");
 			return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
@@ -60,9 +61,9 @@ public class PaymentRiskController {
 		}
 	}
 
-	private String prevalidateAccountFormat(TxRecord record) throws Exception {
+	private String prevalidateAccountFormat(TrxRecord record) throws Exception {
 		SwiftPrevalAcFormatDto prevalAccountFormatDto = new SwiftPrevalAcFormatDto();
-		prevalAccountFormatDto.setAccount_identification(record.getCreditorAccount());
+		prevalAccountFormatDto.setAccount_identification(record.getIban());
 		prevalAccountFormatDto.setCountry_code(record.getCountryCode());
 		prevalAccountFormatDto.setFinancial_institution_identification(record.getInstitutionId());
 		return swiftService.swiftPrevalAcFormat(prevalAccountFormatDto);

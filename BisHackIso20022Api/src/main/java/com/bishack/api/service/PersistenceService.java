@@ -7,24 +7,24 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bishack.api.entity.TxRecord;
-import com.bishack.api.repository.TxRecordRepository;
+import com.bishack.api.entity.TrxRecord;
+import com.bishack.api.repository.TrxRecordRepository;
 
 @Service
 public class PersistenceService implements IPersistenceService {
 	
 	@Autowired
-	private TxRecordRepository recordRepository;
+	private TrxRecordRepository recordRepository;
 	
 	@Override
-	public List<TxRecord> getAllRecords() {		
+	public List<TrxRecord> getAllRecords() {		
 		return recordRepository.findAll();
 	}
 	
 	@Override
 	@Transactional
-	public TxRecord saveRecord(TxRecord record) {		
-		TxRecord savedRecord = recordRepository.save(record);
+	public TrxRecord saveRecord(TrxRecord record) {		
+		TrxRecord savedRecord = recordRepository.save(record);
 		return savedRecord;
 	}
 
