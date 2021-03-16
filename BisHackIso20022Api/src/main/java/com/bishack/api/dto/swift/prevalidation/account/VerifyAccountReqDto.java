@@ -1,8 +1,9 @@
-package com.bishack.api.dto;
+package com.bishack.api.dto.swift.prevalidation.account;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.bishack.api.dto.BaseDto;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,11 +17,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 		"creditor_address", "creditor_organisation_identification", "creditor_agent",
 		"creditor_agent_branch_identification" })
 @JsonRootName(value = "SwiftPrevalAcVerifyDto")
-public class SwiftPrevalAcVerifyDto extends BaseDto {
-
-	/**
-		 * 
-		 */
+public class VerifyAccountReqDto extends BaseDto {
 	private static final long serialVersionUID = 1L;
 
 	@JsonProperty("correlation_identifier")

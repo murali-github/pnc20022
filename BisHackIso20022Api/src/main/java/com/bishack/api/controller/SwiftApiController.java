@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bishack.api.dto.SwiftInstitutionReviewDto;
-import com.bishack.api.dto.SwiftPrevalAcFormatDto;
-import com.bishack.api.dto.SwiftPrevalAcVerifyDto;
 import com.bishack.api.dto.SwiftPrevalBicDto;
 import com.bishack.api.dto.SwiftPrevalCatPurposeDto;
 import com.bishack.api.dto.SwiftPrevalPurposeCdDto;
 import com.bishack.api.dto.SwiftPrevalPurposeDto;
 import com.bishack.api.dto.SwiftTokenDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
 import com.bishack.api.service.ISwiftApiService;
 import com.bishack.api.service.ISwiftApiTokenService;
 
@@ -53,13 +53,13 @@ public class SwiftApiController {
 	}
 	
     @PostMapping(path="/swiftPrevalAcFormat", headers={"Accept=application/json", "Content-Type=application/json"})
-	public ResponseEntity<String> swiftPrevalAcFormat(@RequestBody Optional<SwiftPrevalAcFormatDto>  swiftPrevalAcFormatDto) throws Exception {      	
-    	String respone= swiftApiService.swiftPrevalAcFormat(swiftPrevalAcFormatDto.orElse(new SwiftPrevalAcFormatDto("DE41500105170123456789", "DE", "INGDDEFFXXX")));
+	public ResponseEntity<String> swiftPrevalAcFormat(@RequestBody Optional<VerifyAccountFmtReqDto>  swiftPrevalAcFormatDto) throws Exception {      	
+    	String respone= swiftApiService.swiftPrevalAcFormat(swiftPrevalAcFormatDto.orElse(new VerifyAccountFmtReqDto("DE41500105170123456789", "DE", "INGDDEFFXXX")));
 		return new ResponseEntity<String>(respone, HttpStatus.OK);
 	}
     
     @PostMapping(path="/swiftPrevalAcVerify", headers={"Accept=application/json", "Content-Type=application/json"})
-	public ResponseEntity<String> swiftPrevalAcVerify(@RequestBody Optional<SwiftPrevalAcVerifyDto>  swiftPrevalAcFormatDto) throws Exception {      	
+	public ResponseEntity<String> swiftPrevalAcVerify(@RequestBody Optional<VerifyAccountReqDto>  swiftPrevalAcFormatDto) throws Exception {      	
     	String respone= swiftApiService.swiftPrevalAcVerify(swiftPrevalAcFormatDto.get(), null); // TODO this won't work unless we pass bic. Not sure if we need this class.
 		return new ResponseEntity<String>(respone, HttpStatus.OK);
 	}

@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bishack.api.dto.PayRiskCalcReqDto;
-import com.bishack.api.dto.SwiftPrevalAcFormatDto;
-import com.bishack.api.dto.SwiftPrevalAcVerifyDto;
 import com.bishack.api.dto.TrxRatingModelRequestDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
 import com.bishack.api.entity.TrxRecord;
 
 @Service
@@ -65,7 +65,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
     }
 
     private String prevalidateAccountFormat(TrxRecord record) throws Exception {
-        SwiftPrevalAcFormatDto prevalAccountFormatDto = new SwiftPrevalAcFormatDto();
+        VerifyAccountFmtReqDto prevalAccountFormatDto = new VerifyAccountFmtReqDto();
         prevalAccountFormatDto.setAccount_identification(record.getIban());
         prevalAccountFormatDto.setCountry_code(record.getCountryCode());
         prevalAccountFormatDto.setFinancial_institution_identification(record.getInstitutionId());
@@ -73,7 +73,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
     }
 
     private String prevalidateAccount(TrxRecord record) throws Exception {
-        SwiftPrevalAcVerifyDto dto = new SwiftPrevalAcVerifyDto();
+        VerifyAccountReqDto dto = new VerifyAccountReqDto();
         dto.setCreditorName(record.getCreditorName());
         // Request is in the scope of the payment initiation
         dto.setContext("BENR");
