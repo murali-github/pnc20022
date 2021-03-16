@@ -13,6 +13,8 @@ public class TxRecord {
 	private String creditorName;
 	private String uuid;
 	private String amount;
+	private String institutionId;
+	private String countryCode;
 
 	public String getId() {
 		return id;
@@ -62,5 +64,20 @@ public class TxRecord {
 		this.amount = amount;
 	}
 
-	
+	public String getInstitutionId() {
+		return institutionId;
+	}
+
+	public void setInstitutionId(String institutionId) {
+		this.institutionId = institutionId;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 }

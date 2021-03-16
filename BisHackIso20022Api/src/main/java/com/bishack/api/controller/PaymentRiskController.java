@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.PayRiskCalcResDto;
+import com.bishack.api.dto.SwiftPrevalAcFormatDto;
 import com.bishack.api.entity.TxRecord;
 import com.bishack.api.service.IPersistenceService;
 import com.bishack.api.service.SwiftApiService;
@@ -22,10 +23,10 @@ import com.bishack.config.AppProperties;
 public class PaymentRiskController {
 	@Autowired
 	private AppProperties appProperties;
-	
+
 	@Autowired
 	private SwiftApiService swiftService;
-	
+
 	@Autowired
 	private IPersistenceService persistenceService;
 
@@ -38,7 +39,7 @@ public class PaymentRiskController {
 			if (reqDto.getCreditorAccount() != "123110040000109876543210") {
 				return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
 			}
-			
+
 			TxRecord record = new TxRecord();
 			record.setCreditorName(reqDto.getCreditorName());
 			record.setCreditorAccount(reqDto.getCreditorAccount());
@@ -46,15 +47,24 @@ public class PaymentRiskController {
 			record.setUuid(UUID.randomUUID().toString());
 			record.setAmount(reqDto.getAmount());
 			// TODO add prevalidation result stuff to record
+			prevalidateAccountFormat(record);
+
 			TxRecord savedRecord = persistenceService.saveRecord(record);
 
 			// TODO this should come from RiskEngine later when it's implemented
 			resDto = new PayRiskCalcResDto();
 			resDto.setRiskFactor("HIGH");
 			return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	private String prevalidateAccountFormat(TxRecord record) throws Exception {
+		SwiftPrevalAcFormatDto prevalAccountFormatDto = new SwiftPrevalAcFormatDto();
+		prevalAccountFormatDto.setAccount_identification(record.getCreditorAccount());
+		prevalAccountFormatDto.setCountry_code(record.getCountryCode());
+		prevalAccountFormatDto.setFinancial_institution_identification(record.getInstitutionId());
+		return swiftService.swiftPrevalAcFormat(prevalAccountFormatDto);
 	}
 }
