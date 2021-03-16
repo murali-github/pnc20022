@@ -24,26 +24,26 @@ public class TrxRatingModelDto extends BaseDto {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<TrxRatingModelRequestDto> trxRatingModelRequestDto;
-	private List<TrxRatingModelResponeDto> trxRatingModelResponeDto;
+	private List<TrxRatingModelRequestDto> trxRatingModelRequestDtos;
+	private List<TrxRatingModelResponeDto> trxRatingModelResponeDtos;
 	
 	private Integer overallScore;
 	private BigDecimal trxAmount;
 
 	public List<TrxRatingModelRequestDto> getTrxRatingModelRequestDto() {
-		return trxRatingModelRequestDto;
+		return trxRatingModelRequestDtos;
 	}
 
 	public void setTrxRatingModelRequestDto(List<TrxRatingModelRequestDto> trxRatingModelRequestDto) {
-		this.trxRatingModelRequestDto = trxRatingModelRequestDto;
+		this.trxRatingModelRequestDtos = trxRatingModelRequestDto;
 	}
 
 	public List<TrxRatingModelResponeDto> getTrxRatingModelResponeDto() {
-		return trxRatingModelResponeDto;
+		return trxRatingModelResponeDtos;
 	}
 
 	public void setTrxRatingModelResponeDto(List<TrxRatingModelResponeDto> trxRatingModelResponeDto) {
-		this.trxRatingModelResponeDto = trxRatingModelResponeDto;
+		this.trxRatingModelResponeDtos = trxRatingModelResponeDto;
 	}
 
 
