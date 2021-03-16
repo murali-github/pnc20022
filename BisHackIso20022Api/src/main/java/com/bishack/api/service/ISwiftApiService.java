@@ -10,7 +10,7 @@ import com.bishack.api.dto.SwiftPrevalPurposeDto;
 
 public interface ISwiftApiService {	
 	String swiftPrevalAcFormat(SwiftPrevalAcFormatDto swiftPrevalAcFormatDto) throws Exception;
-	String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto) throws Exception;	
+	String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto, String bic) throws Exception;	
 	String swiftPrevalBic(SwiftPrevalBicDto swiftPrevalBicDto) throws Exception;	
 	String swiftPrevalPurposeCd(SwiftPrevalPurposeCdDto swiftPrevalPurposeCdDto) throws Exception;	
 	String swiftPrevalPurpose(SwiftPrevalPurposeDto swiftPrevalPurposeDto) throws Exception;	

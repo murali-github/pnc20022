@@ -7,25 +7,25 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bishack.api.entity.Customer;
-import com.bishack.api.repository.CustomerRepository;
+import com.bishack.api.entity.TrxRecord;
+import com.bishack.api.repository.TrxRecordRepository;
 
 @Service
 public class PersistenceService implements IPersistenceService {
 	
 	@Autowired
-	private CustomerRepository customerRepository;
+	private TrxRecordRepository recordRepository;
 	
 	@Override
-	public List<Customer> getAllCustomers() {		
-		return customerRepository.findAll();
+	public List<TrxRecord> getAllRecords() {		
+		return recordRepository.findAll();
 	}
 	
 	@Override
 	@Transactional
-	public String saveCustomer(Customer customer) {		
-		customerRepository.save(customer);
-		return "success";
+	public TrxRecord saveRecord(TrxRecord record) {		
+		TrxRecord savedRecord = recordRepository.save(record);
+		return savedRecord;
 	}
 
 }

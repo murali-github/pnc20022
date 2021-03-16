@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.bishack.api.entity.Customer;
+import com.bishack.api.entity.TrxRecord;
 import com.bishack.api.service.IPersistenceService;
 import com.bishack.config.AppProperties;
 
@@ -28,14 +28,14 @@ public class TestController {
  		return new ResponseEntity<String>("Test Success", HttpStatus.OK);
  	}
     
-    @GetMapping(path="/getCustomers")
- 	public ResponseEntity<List<Customer>> getCustomers() {   	
- 		return new ResponseEntity<>(persistenceService.getAllCustomers(), HttpStatus.OK);
+    @GetMapping(path="/getRecords")
+ 	public ResponseEntity<List<TrxRecord>> getRecords() {   	
+ 		return new ResponseEntity<>(persistenceService.getAllRecords(), HttpStatus.OK);
  	}
  	
    
-    @PostMapping(path="/saveCustomer", headers={"Accept=application/json", "Content-Type=application/json"})
-	public ResponseEntity<String> saveCustomer(@RequestBody  Customer customer) {   	
- 		return new ResponseEntity<>(persistenceService.saveCustomer(customer), HttpStatus.OK);
+    @PostMapping(path="/saveRecord", headers={"Accept=application/json", "Content-Type=application/json"})
+	public ResponseEntity<TrxRecord> saveRecord(@RequestBody TrxRecord record) {   	
+ 		return new ResponseEntity<>(persistenceService.saveRecord(record), HttpStatus.OK);
  	}
 }
