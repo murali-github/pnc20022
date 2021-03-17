@@ -25,10 +25,12 @@ export class AppComponent {
       this.formData.value.uuid = "aye2yes-" + uuid.v4();
       console.log(this.formData);
 
-      let response = this.httpClient.post<any>("http://localhost:8080/paymentRisk", this.formData.value).pipe(
+      let response = this.httpClient.post<any>("http:/localhost:8080/paymentRisk", this.formData.value).pipe(
 
-      );
-      console.log(response);
+      )
+      response.subscribe(res => {
+        console.log(res);
+      });
     }
 
 }
