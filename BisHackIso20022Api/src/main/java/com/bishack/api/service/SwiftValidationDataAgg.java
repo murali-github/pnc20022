@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bishack.api.dto.PayRiskCalcReqDto;
-import com.bishack.api.dto.SwiftPrevalAcFormatDto;
-import com.bishack.api.dto.SwiftPrevalAcVerifyDto;
 import com.bishack.api.dto.TrxRatingModelRequestDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 import com.bishack.api.entity.TrxRecord;
 
 @Service
@@ -25,18 +27,44 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
     @Override
     public List<TrxRatingModelRequestDto> getModelInputData(PayRiskCalcReqDto payRiskCalcReqDto) {
         List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<>();
-
         TrxRecord record = translateToTrxRecord(payRiskCalcReqDto);
-        // TODO capture return value here
+
         try {
-            prevalidateAccountFormat(record);
-            prevalidateAccount(record);
+            VerifyAccountFmtRespDto verifyAccountFmtResponse = prevalidateAccountFormat(record);
+            LOG.debug("Account format verification result: {}", verifyAccountFmtResponse);
+            VerifyAccountRespDto verifyAccountResponse = prevalidateAccount(record);
+            LOG.debug("Account verification result: {}", verifyAccountResponse);
+
+            // Translate to TrxRatingModelRequestDto instances if applicable.
+            // This is hardcoded for demo.
+            if ("500105170123456789".equals(payRiskCalcReqDto.getCreditorAccount())) {
+                TrxRatingModelRequestDto acctFormatRating = new TrxRatingModelRequestDto();
+                acctFormatRating.setAttrName("AC_FORMAT_VALIDATION");
+                acctFormatRating.setCategory("SWIFT_VALIDATION");
+                acctFormatRating.setValue("LOW");
+                trxRatingModelRequestDtos.add(acctFormatRating);
+
+                TrxRatingModelRequestDto acctRating = new TrxRatingModelRequestDto();
+                acctRating.setAttrName("AC_VALIDATION");
+                acctRating.setCategory("SWIFT_VALIDATION");
+                acctRating.setValue("LOW");
+                trxRatingModelRequestDtos.add(acctRating);
+            } else if ("100000010123123123".equals(payRiskCalcReqDto.getCreditorAccount())) {
+                TrxRatingModelRequestDto acctFormatRating = new TrxRatingModelRequestDto();
+                acctFormatRating.setAttrName("AC_FORMAT_VALIDATION");
+                acctFormatRating.setCategory("SWIFT_VALIDATION");
+                acctFormatRating.setValue("MEDIUM");
+                trxRatingModelRequestDtos.add(acctFormatRating);
+
+                TrxRatingModelRequestDto acctRating = new TrxRatingModelRequestDto();
+                acctRating.setAttrName("AC_VALIDATION");
+                acctRating.setCategory("SWIFT_VALIDATION");
+                acctRating.setValue("MEDIUM");
+                trxRatingModelRequestDtos.add(acctRating);
+            }
         } catch (Exception e) {
             LOG.error("Encountered exception: {}", e);
         }
-
-        // Call Swift Prevalidation and based on the response return the attributes
-        // {"category":"SWIFT_VALIDATION","attrName":"AC_FORMAT_VALIDATION","value":"LOW"},{"category":"SWIFT_VALIDATION","attrName":"AC_VERIFICATION","value":"LOW"}
 
         return trxRatingModelRequestDtos;
     }
@@ -64,16 +92,16 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         return record;
     }
 
-    private String prevalidateAccountFormat(TrxRecord record) throws Exception {
-        SwiftPrevalAcFormatDto prevalAccountFormatDto = new SwiftPrevalAcFormatDto();
+    private VerifyAccountFmtRespDto prevalidateAccountFormat(TrxRecord record) throws Exception {
+        VerifyAccountFmtReqDto prevalAccountFormatDto = new VerifyAccountFmtReqDto();
         prevalAccountFormatDto.setAccount_identification(record.getIban());
         prevalAccountFormatDto.setCountry_code(record.getCountryCode());
         prevalAccountFormatDto.setFinancial_institution_identification(record.getInstitutionId());
         return swiftApiService.swiftPrevalAcFormat(prevalAccountFormatDto);
     }
 
-    private String prevalidateAccount(TrxRecord record) throws Exception {
-        SwiftPrevalAcVerifyDto dto = new SwiftPrevalAcVerifyDto();
+    private VerifyAccountRespDto prevalidateAccount(TrxRecord record) throws Exception {
+        VerifyAccountReqDto dto = new VerifyAccountReqDto();
         dto.setCreditorName(record.getCreditorName());
         // Request is in the scope of the payment initiation
         dto.setContext("BENR");

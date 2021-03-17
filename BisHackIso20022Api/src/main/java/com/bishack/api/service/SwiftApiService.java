@@ -15,13 +15,15 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.bishack.api.dto.SwiftInstitutionReviewDto;
-import com.bishack.api.dto.SwiftPrevalAcFormatDto;
-import com.bishack.api.dto.SwiftPrevalAcVerifyDto;
 import com.bishack.api.dto.SwiftPrevalBicDto;
 import com.bishack.api.dto.SwiftPrevalCatPurposeDto;
 import com.bishack.api.dto.SwiftPrevalPurposeCdDto;
 import com.bishack.api.dto.SwiftPrevalPurposeDto;
 import com.bishack.api.dto.SwiftTokenDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 
 @Service(value = "swiftApiService")
 public class SwiftApiService implements ISwiftApiService {
@@ -34,8 +36,8 @@ public class SwiftApiService implements ISwiftApiService {
 	private ISwiftApiTokenService swiftApiTokenService;
 
 	@Override
-	public String swiftPrevalAcFormat(SwiftPrevalAcFormatDto swiftPrevalAcFormatDto) throws Exception {
-		String response = null;
+	public VerifyAccountFmtRespDto swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception {
+		VerifyAccountFmtRespDto response = null;
 
 		if (swiftPrevalAcFormatDto != null) {
 
@@ -46,13 +48,13 @@ public class SwiftApiService implements ISwiftApiService {
 				headers.add("Authorization", "Bearer " + swiftTokenDto.getAccess_token());
 				headers.setContentType(MediaType.APPLICATION_JSON);
 
-				HttpEntity<SwiftPrevalAcFormatDto> request = new HttpEntity<>(swiftPrevalAcFormatDto, headers);
+				HttpEntity<VerifyAccountFmtReqDto> request = new HttpEntity<>(swiftPrevalAcFormatDto, headers);
 
-				ResponseEntity<String> responseEnt = swiftApiRestTemplate.exchange(
+				ResponseEntity<VerifyAccountFmtRespDto> responseEnt = swiftApiRestTemplate.exchange(
 						"https://sandbox.swift.com/swift-preval-pilot/v2/payment/account-format", HttpMethod.POST,
-						request, String.class);
-				LOG.debug("Swift Preval Account Format returned status code" + responseEnt.getStatusCode());
+						request, VerifyAccountFmtRespDto.class);
 				response = responseEnt.getBody();
+				LOG.debug("Swift Preval Account Format returned status code {} - Content: {}", responseEnt.getStatusCode(), response.toString());
 			}
 		}
 
@@ -60,28 +62,25 @@ public class SwiftApiService implements ISwiftApiService {
 	}
 
 	@Override
-	public String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto, String bic) throws Exception {
-		String response = null;
-		
+	public VerifyAccountRespDto swiftPrevalAcVerify(VerifyAccountReqDto swiftPrevalAcVerifyDto, String bic) throws Exception {
+	    VerifyAccountRespDto response = null;
 
 		if (swiftPrevalAcVerifyDto != null) {
-
 			SwiftTokenDto swiftTokenDto = swiftApiTokenService.getSwiftPrevalAuthToken();
 			if (swiftTokenDto != null && StringUtils.isNotBlank(swiftTokenDto.getAccess_token())) {
-
 				HttpHeaders headers = new HttpHeaders();
 				headers.add("Authorization", "Bearer " + swiftTokenDto.getAccess_token());
 				headers.setContentType(MediaType.APPLICATION_JSON);
 				headers.add("x-bic", bic);
 
-				HttpEntity<SwiftPrevalAcVerifyDto> request = new HttpEntity<>(swiftPrevalAcVerifyDto, headers);
+				HttpEntity<VerifyAccountReqDto> request = new HttpEntity<>(swiftPrevalAcVerifyDto, headers);
 
-				ResponseEntity<String> responseEnt = swiftApiRestTemplate.exchange(
+				ResponseEntity<VerifyAccountRespDto> responseEnt = swiftApiRestTemplate.exchange(
 						"https://sandbox.swift.com/swift-preval-pilot/v2/accounts/verification", HttpMethod.POST,
-						request, String.class);
-				String responseBody = responseEnt.getBody();
+						request, VerifyAccountRespDto.class);
+				response = responseEnt.getBody();
+				String responseBody = response.toString();
 				LOG.debug("Swift Preval Account returned status code {} - Content: {}", responseEnt.getStatusCode(), responseBody);
-				response = responseBody;
 			}
 		}
 
