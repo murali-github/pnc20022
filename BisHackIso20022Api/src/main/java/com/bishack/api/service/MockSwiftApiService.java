@@ -16,13 +16,15 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.bishack.api.dto.SwiftInstitutionReviewDto;
-import com.bishack.api.dto.SwiftPrevalAcFormatDto;
-import com.bishack.api.dto.SwiftPrevalAcVerifyDto;
 import com.bishack.api.dto.SwiftPrevalBicDto;
 import com.bishack.api.dto.SwiftPrevalCatPurposeDto;
 import com.bishack.api.dto.SwiftPrevalPurposeCdDto;
 import com.bishack.api.dto.SwiftPrevalPurposeDto;
 import com.bishack.api.dto.SwiftTokenDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 import com.bishack.api.dto.swiftref.bbantoiban.BbanToIbanResDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,15 +38,15 @@ public class MockSwiftApiService implements ISwiftApiService {
 	private ISwiftApiTokenService swiftApiTokenService;
 
 	@Override
-	public String swiftPrevalAcFormat(SwiftPrevalAcFormatDto swiftPrevalAcFormatDto) throws Exception {
-		String response = null;
+	public VerifyAccountFmtRespDto swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception {
+	    VerifyAccountFmtRespDto response = null;
 
 		return response;
 	}
 
 	@Override
-	public String swiftPrevalAcVerify(SwiftPrevalAcVerifyDto swiftPrevalAcVerifyDto, String bic) throws Exception {
-		String response = null;
+	public VerifyAccountRespDto swiftPrevalAcVerify(VerifyAccountReqDto swiftPrevalAcVerifyDto, String bic) throws Exception {
+	    VerifyAccountRespDto response = null;
 
 		return response;
 	}

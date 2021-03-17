@@ -1,13 +1,12 @@
 package com.bishack.api.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Arrays;
 import org.springframework.stereotype.Service;
-
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.TrxRatingModelRequestDto;
 
