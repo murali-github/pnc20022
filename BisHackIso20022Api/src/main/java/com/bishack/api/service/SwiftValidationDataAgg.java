@@ -26,7 +26,6 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
 
     @Override
     public List<TrxRatingModelRequestDto> getModelInputData(PayRiskCalcReqDto payRiskCalcReqDto) {
-        List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<>();
         TrxRecord record = translateToTrxRecord(payRiskCalcReqDto);
 
         VerifyAccountFmtRespDto verifyCreditorAccountFmtResponse = null;
@@ -35,8 +34,8 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
             LOG.debug("Creditor account format verification result: {}", verifyCreditorAccountFmtResponse);
         } catch (Exception e) {
             LOG.warn("Swift call encountered exception: {}", e);
-            // For demo we don't want to bother with handling this. Rating model is somewhat mocked so
-            // it won't cause issues.
+            // For demo we don't want to bother with handling this. Rating model is somewhat
+            // mocked so it won't cause issues.
         }
 
         VerifyAccountFmtRespDto verifyDebitorAccountFmtResponse = null;
@@ -45,8 +44,8 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
             LOG.debug("Debitor account format verification result: {}", verifyDebitorAccountFmtResponse);
         } catch (Exception e) {
             LOG.warn("Swift call encountered exception: {}", e);
-            // For demo we don't want to bother with handling this. Rating model is somewhat mocked so
-            // it won't cause issues.
+            // For demo we don't want to bother with handling this. Rating model is somewhat
+            // mocked so it won't cause issues.
         }
 
         VerifyAccountRespDto verifyCreditorAccountResponse = null;
@@ -55,37 +54,55 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
             LOG.debug("Creditor account verification result: {}", verifyCreditorAccountResponse);
         } catch (Exception e) {
             LOG.warn("Swift call encountered exception: {}", e);
-            // For demo we don't want to bother with handling this. Rating model is somewhat mocked so
-            // it won't cause issues.
+            // For demo we don't want to bother with handling this. Rating model is somewhat
+            // mocked so it won't cause issues.
         }
 
-        // Translate to TrxRatingModelRequestDto instances if applicable.
-        // This is hardcoded for demo.
-        if ("500105170123456789".equals(payRiskCalcReqDto.getCreditorAccount())) {
-            TrxRatingModelRequestDto acctFormatRating = new TrxRatingModelRequestDto();
-            acctFormatRating.setAttrName("AC_FORMAT_VALIDATION");
-            acctFormatRating.setCategory("SWIFT_VALIDATION");
-            acctFormatRating.setValue("LOW");
-            trxRatingModelRequestDtos.add(acctFormatRating);
+        List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = translateToRatingModelRequest(payRiskCalcReqDto);
+        return trxRatingModelRequestDtos;
+    }
 
-            TrxRatingModelRequestDto acctRating = new TrxRatingModelRequestDto();
-            acctRating.setAttrName("AC_VALIDATION");
-            acctRating.setCategory("SWIFT_VALIDATION");
-            acctRating.setValue("LOW");
-            trxRatingModelRequestDtos.add(acctRating);
-        } else if ("100000010123123123".equals(payRiskCalcReqDto.getCreditorAccount())) {
-            TrxRatingModelRequestDto acctFormatRating = new TrxRatingModelRequestDto();
-            acctFormatRating.setAttrName("AC_FORMAT_VALIDATION");
-            acctFormatRating.setCategory("SWIFT_VALIDATION");
-            acctFormatRating.setValue("MEDIUM");
-            trxRatingModelRequestDtos.add(acctFormatRating);
+    private List<TrxRatingModelRequestDto> translateToRatingModelRequest(PayRiskCalcReqDto payRiskCalcReqDto) {
+        List<TrxRatingModelRequestDto> trxRatingModelRequestDtos = new ArrayList<>();
 
-            TrxRatingModelRequestDto acctRating = new TrxRatingModelRequestDto();
-            acctRating.setAttrName("AC_VALIDATION");
-            acctRating.setCategory("SWIFT_VALIDATION");
-            acctRating.setValue("MEDIUM");
-            trxRatingModelRequestDtos.add(acctRating);
+        // Creditor account format validation
+        TrxRatingModelRequestDto creditorAcctFormatRating = new TrxRatingModelRequestDto();
+        creditorAcctFormatRating.setAttrName(IServiceConstants.ATTR_BENE_AC_FORMAT_VALIDATION);
+        creditorAcctFormatRating.setCategory(IServiceConstants.CAT_SWIFT_VALIDATION);
+        if (IServiceConstants.BBAN_AC_FORMAT_LOW.contains(payRiskCalcReqDto.getCreditorAccount())) {
+            creditorAcctFormatRating.setValue(IServiceConstants.RATING_LEVEL_LOW);
+        } else if (IServiceConstants.BBAN_AC_FORMAT_MEDIUM.contains(payRiskCalcReqDto.getCreditorAccount())) {
+            creditorAcctFormatRating.setValue(IServiceConstants.RATING_LEVEL_LOW);
+        } else {
+            creditorAcctFormatRating.setValue(IServiceConstants.RATING_LEVEL_HIGH);
         }
+        trxRatingModelRequestDtos.add(creditorAcctFormatRating);
+
+        // Debitor account format validation
+        TrxRatingModelRequestDto debitorAcctFormatRating = new TrxRatingModelRequestDto();
+        debitorAcctFormatRating.setAttrName(IServiceConstants.ATTR_SRC_AC_FORMAT_VALIDATION);
+        debitorAcctFormatRating.setCategory(IServiceConstants.CAT_SWIFT_VALIDATION);
+        if (IServiceConstants.BBAN_AC_FORMAT_LOW.contains(payRiskCalcReqDto.getDebitorAccount())) {
+            debitorAcctFormatRating.setValue(IServiceConstants.RATING_LEVEL_LOW);
+        } else if (IServiceConstants.BBAN_AC_FORMAT_MEDIUM.contains(payRiskCalcReqDto.getDebitorAccount())) {
+            debitorAcctFormatRating.setValue(IServiceConstants.RATING_LEVEL_LOW);
+        } else {
+            debitorAcctFormatRating.setValue(IServiceConstants.RATING_LEVEL_HIGH);
+        }
+        trxRatingModelRequestDtos.add(debitorAcctFormatRating);
+
+        // Creditor account validation
+        TrxRatingModelRequestDto creditorAcctRating = new TrxRatingModelRequestDto();
+        creditorAcctRating.setAttrName(IServiceConstants.ATTR_BENE_AC_VERIFICATION);
+        creditorAcctRating.setCategory(IServiceConstants.CAT_SWIFT_VALIDATION);
+        if (IServiceConstants.BBAN_AC_VERIFY_LOW.contains(payRiskCalcReqDto.getCreditorAccount())) {
+            creditorAcctRating.setValue(IServiceConstants.RATING_LEVEL_LOW);
+        } else if (IServiceConstants.BBAN_AC_VERIFY_LOW.contains(payRiskCalcReqDto.getCreditorAccount())) {
+            creditorAcctRating.setValue(IServiceConstants.RATING_LEVEL_LOW);
+        } else {
+            creditorAcctRating.setValue(IServiceConstants.RATING_LEVEL_HIGH);
+        }
+        trxRatingModelRequestDtos.add(creditorAcctRating);
 
         return trxRatingModelRequestDtos;
     }
@@ -110,6 +127,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
             record.setCreditorBankId("10000001");
             record.setCreditorBankIdCode("BLKFDE33");
         }
+
         return record;
     }
 
