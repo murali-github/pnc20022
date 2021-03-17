@@ -32,6 +32,7 @@ public class RiskCalcEngine implements IRiskCalcEngine {
 		
 		PayRiskCalcResDto payRiskCalcResDto = new PayRiskCalcResDto();
 		payRiskCalcResDto.setRiskRecommendation("COULD_NOT_PERFORM");
+		ObjectMapper objectMapper = new ObjectMapper();
 		
 		try {
 		
@@ -52,12 +53,13 @@ public class RiskCalcEngine implements IRiskCalcEngine {
 				HttpHeaders headers = new HttpHeaders();				
 				headers.setContentType(MediaType.APPLICATION_JSON);				
 				HttpEntity<TrxRatingModelDto> request = new HttpEntity<>(trxRatingModelDto, headers);
+				System.out.println(objectMapper.writeValueAsString(trxRatingModelDto));
 				
 				
 				ResponseEntity<String> responseEnt = restTemplate.exchange(
 						"http://localhost:80/predict_score",
 						HttpMethod.POST, request, String.class);
-				ObjectMapper objectMapper = new ObjectMapper();
+				objectMapper = new ObjectMapper();
 				
 				String jsonStr = responseEnt.getBody();
 				//jsonStr = "[{\"category\":[\"SWIFT_VALIDATION\"],\"score\":[5]},{\"category\":[\"SWIFT_COMPLIANCE\"],\"score\":[6]},{\"category\":[\"INTERNAL_COMPLIANCE\"],\"score\":[7]},{\"category\":[\"INTERNAL_TRX_HIST\"],\"score\":[57]},{\"category\":[\"OVERALL_SCORE\"],\"score\":[6]}]";
@@ -84,8 +86,8 @@ public class RiskCalcEngine implements IRiskCalcEngine {
 							}
 						}
 					}
-		
 					
+					payRiskCalcResDto.setTrxRatingModelDto(trxRatingModelDto);
 				}
 				
 				

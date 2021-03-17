@@ -91,7 +91,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         }
         trxRatingModelRequestDtos.add(debitorAcctFormatRating);
 
-        // Creditor account validation
+       /* // Creditor account validation
         TrxRatingModelRequestDto creditorAcctRating = new TrxRatingModelRequestDto();
         creditorAcctRating.setAttrName(IServiceConstants.ATTR_BENE_AC_VERIFICATION);
         creditorAcctRating.setCategory(IServiceConstants.CAT_SWIFT_VALIDATION);
@@ -102,7 +102,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         } else {
             creditorAcctRating.setValue(IServiceConstants.RATING_LEVEL_HIGH);
         }
-        trxRatingModelRequestDtos.add(creditorAcctRating);
+        trxRatingModelRequestDtos.add(creditorAcctRating);*/
 
         return trxRatingModelRequestDtos;
     }

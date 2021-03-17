@@ -14,6 +14,9 @@ public class PayRiskCalcResDto {
 
 	
 	private List<TrxRatingModelResponeDto> riskRatingDetails;
+	
+	@JsonProperty("mlModelInput")
+	private TrxRatingModelDto trxRatingModelDto;
 
 	public String getRiskRecommendation() {
 		return riskRecommendation;
@@ -33,6 +36,14 @@ public class PayRiskCalcResDto {
 
 	public void setRiskRatingDetails(List<TrxRatingModelResponeDto> riskRatingDetails) {
 		this.riskRatingDetails = riskRatingDetails;
+	}
+
+	public TrxRatingModelDto getTrxRatingModelDto() {
+		return trxRatingModelDto;
+	}
+
+	public void setTrxRatingModelDto(TrxRatingModelDto trxRatingModelDto) {
+		this.trxRatingModelDto = trxRatingModelDto;
 	}
 	
 

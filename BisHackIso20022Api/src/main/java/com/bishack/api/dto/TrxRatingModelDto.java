@@ -25,13 +25,13 @@ public class TrxRatingModelDto extends BaseDto {
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<TrxRatingModelRequestDto> trxRatingModelRequestDtos;
-	private List<TrxRatingModelResponeDto> trxRatingModelResponeDtos;
+/*	//private List<TrxRatingModelResponeDto> trxRatingModelResponeDtos;
 	
 	private List<String> category;
 
     private List<Integer> score;
 	
-	private Integer overallScore;
+	private Integer overallScore;*/
 	private BigDecimal trxAmount;
 
 	
@@ -44,29 +44,7 @@ public class TrxRatingModelDto extends BaseDto {
 		this.trxRatingModelRequestDtos = trxRatingModelRequestDtos;
 	}
 
-	public List<TrxRatingModelResponeDto> getTrxRatingModelResponeDtos() {
-		return trxRatingModelResponeDtos;
-	}
-
-	public void setTrxRatingModelResponeDtos(List<TrxRatingModelResponeDto> trxRatingModelResponeDtos) {
-		this.trxRatingModelResponeDtos = trxRatingModelResponeDtos;
-	}
-
-	public List<String> getCategory() {
-		return category;
-	}
-
-	public void setCategory(List<String> category) {
-		this.category = category;
-	}
-
-	public List<Integer> getScore() {
-		return score;
-	}
-
-	public void setScore(List<Integer> score) {
-		this.score = score;
-	}
+	
 
 	public List<TrxRatingModelRequestDto> getTrxRatingModelRequestDto() {
 		return trxRatingModelRequestDtos;
@@ -76,13 +54,7 @@ public class TrxRatingModelDto extends BaseDto {
 		this.trxRatingModelRequestDtos = trxRatingModelRequestDto;
 	}
 
-	public List<TrxRatingModelResponeDto> getTrxRatingModelResponeDto() {
-		return trxRatingModelResponeDtos;
-	}
 
-	public void setTrxRatingModelResponeDto(List<TrxRatingModelResponeDto> trxRatingModelResponeDto) {
-		this.trxRatingModelResponeDtos = trxRatingModelResponeDto;
-	}
 
 
 
@@ -90,13 +62,7 @@ public class TrxRatingModelDto extends BaseDto {
 		super();
 	}
 
-	public Integer getOverallScore() {
-		return overallScore;
-	}
 
-	public void setOverallScore(Integer overallScore) {
-		this.overallScore = overallScore;
-	}
 
 	public BigDecimal getTrxAmount() {
 		return trxAmount;
@@ -107,7 +73,7 @@ public class TrxRatingModelDto extends BaseDto {
 	}
 	
 	public static void main(String a[]) throws JsonProcessingException {
-		TrxRatingModelDto trxRatingModelDto = new TrxRatingModelDto();
+		/*TrxRatingModelDto trxRatingModelDto = new TrxRatingModelDto();
 		
 		
 		
@@ -194,7 +160,7 @@ public class TrxRatingModelDto extends BaseDto {
 		ObjectMapper objMapper = new ObjectMapper();
 		String jsonString = objMapper.writeValueAsString(trxRatingModelDto);
 		System.out.println(jsonString);
-
+*/
 		
 	}
 }

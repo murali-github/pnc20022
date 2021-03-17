@@ -41,11 +41,11 @@ public class SwiftComplianceDataAgg implements IRiskEngineDataAgg {
 				trxRatingModelRequestDtos.add(trxRatingModelRequestDto);
 				trxRatingModelRequestDto.setAttrName(IServiceConstants.ATTR_SRC_AC_VERIFICATION);
 				trxRatingModelRequestDto.setCategory(IServiceConstants.CAT_SWIFT_COMPLIANCE);
-				if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_LOW, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+				if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_LOW, Arrays.asList(payRiskCalcReqDto.getDebitorAccount()))) {
 					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
-				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_MEDIUM, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_MEDIUM, Arrays.asList(payRiskCalcReqDto.getDebitorAccount()))) {
 					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_MEDIUM);
-				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_HIGH, Arrays.asList(payRiskCalcReqDto.getCreditorAccount()))) {
+				} else if (CollectionUtils.containsAny(IServiceConstants.BBAN_AC_VERIFY_HIGH, Arrays.asList(payRiskCalcReqDto.getDebitorAccount()))) {
 					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_HIGH);
 				} else {
 					trxRatingModelRequestDto.setValue(IServiceConstants.RATING_LEVEL_LOW);
