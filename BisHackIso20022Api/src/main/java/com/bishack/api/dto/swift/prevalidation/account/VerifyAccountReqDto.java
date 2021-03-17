@@ -10,16 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "correlation_identifier", "context", "uetr", "creditor_account", "creditor_name",
 		"creditor_address", "creditor_organisation_identification", "creditor_agent",
 		"creditor_agent_branch_identification" })
-@JsonRootName(value = "SwiftPrevalAcVerifyDto")
 public class VerifyAccountReqDto extends BaseDto {
 	private static final long serialVersionUID = 1L;
-
 	@JsonProperty("correlation_identifier")
 	private String correlationIdentifier;
 	@JsonProperty("context")

@@ -24,6 +24,7 @@ import com.bishack.api.dto.SwiftTokenDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 import com.bishack.api.dto.swiftref.bbantoiban.BbanToIbanResDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,8 +38,8 @@ public class MockSwiftApiService implements ISwiftApiService {
 	private ISwiftApiTokenService swiftApiTokenService;
 
 	@Override
-	public String swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception {
-		String response = null;
+	public VerifyAccountFmtRespDto swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception {
+	    VerifyAccountFmtRespDto response = null;
 
 		return response;
 	}

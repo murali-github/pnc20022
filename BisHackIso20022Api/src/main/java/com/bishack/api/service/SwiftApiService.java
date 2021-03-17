@@ -23,6 +23,7 @@ import com.bishack.api.dto.SwiftTokenDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 
 @Service(value = "swiftApiService")
 public class SwiftApiService implements ISwiftApiService {
@@ -35,8 +36,8 @@ public class SwiftApiService implements ISwiftApiService {
 	private ISwiftApiTokenService swiftApiTokenService;
 
 	@Override
-	public String swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception {
-		String response = null;
+	public VerifyAccountFmtRespDto swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception {
+		VerifyAccountFmtRespDto response = null;
 
 		if (swiftPrevalAcFormatDto != null) {
 
@@ -49,11 +50,11 @@ public class SwiftApiService implements ISwiftApiService {
 
 				HttpEntity<VerifyAccountFmtReqDto> request = new HttpEntity<>(swiftPrevalAcFormatDto, headers);
 
-				ResponseEntity<String> responseEnt = swiftApiRestTemplate.exchange(
+				ResponseEntity<VerifyAccountFmtRespDto> responseEnt = swiftApiRestTemplate.exchange(
 						"https://sandbox.swift.com/swift-preval-pilot/v2/payment/account-format", HttpMethod.POST,
-						request, String.class);
-				LOG.debug("Swift Preval Account Format returned status code" + responseEnt.getStatusCode());
+						request, VerifyAccountFmtRespDto.class);
 				response = responseEnt.getBody();
+				LOG.debug("Swift Preval Account Format returned status code {} - Content: {}", responseEnt.getStatusCode(), response.toString());
 			}
 		}
 

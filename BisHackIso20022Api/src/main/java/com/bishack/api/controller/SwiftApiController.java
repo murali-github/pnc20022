@@ -20,6 +20,7 @@ import com.bishack.api.dto.SwiftTokenDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 import com.bishack.api.service.ISwiftApiService;
 import com.bishack.api.service.ISwiftApiTokenService;
 
@@ -54,9 +55,9 @@ public class SwiftApiController {
 	}
 	
     @PostMapping(path="/swiftPrevalAcFormat", headers={"Accept=application/json", "Content-Type=application/json"})
-	public ResponseEntity<String> swiftPrevalAcFormat(@RequestBody Optional<VerifyAccountFmtReqDto>  swiftPrevalAcFormatDto) throws Exception {      	
-    	String respone= swiftApiService.swiftPrevalAcFormat(swiftPrevalAcFormatDto.orElse(new VerifyAccountFmtReqDto("DE41500105170123456789", "DE", "INGDDEFFXXX")));
-		return new ResponseEntity<String>(respone, HttpStatus.OK);
+	public ResponseEntity<VerifyAccountFmtRespDto> swiftPrevalAcFormat(@RequestBody Optional<VerifyAccountFmtReqDto>  swiftPrevalAcFormatDto) throws Exception {      	
+    	VerifyAccountFmtRespDto respone= swiftApiService.swiftPrevalAcFormat(swiftPrevalAcFormatDto.orElse(new VerifyAccountFmtReqDto("DE41500105170123456789", "DE", "INGDDEFFXXX")));
+		return new ResponseEntity<VerifyAccountFmtRespDto>(respone, HttpStatus.OK);
 	}
     
     @PostMapping(path="/swiftPrevalAcVerify", headers={"Accept=application/json", "Content-Type=application/json"})

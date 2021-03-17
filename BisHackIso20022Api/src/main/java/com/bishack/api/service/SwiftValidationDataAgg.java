@@ -14,6 +14,7 @@ import com.bishack.api.dto.TrxRatingModelRequestDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 import com.bishack.api.entity.TrxRecord;
 
 @Service
@@ -30,7 +31,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         TrxRecord record = translateToTrxRecord(payRiskCalcReqDto);
         // TODO capture return value here
         try {
-            prevalidateAccountFormat(record);
+            VerifyAccountFmtRespDto verifyAccountFmtResponse = prevalidateAccountFormat(record);
             VerifyAccountRespDto verifyAccountResponse = prevalidateAccount(record);
         } catch (Exception e) {
             LOG.error("Encountered exception: {}", e);
@@ -65,7 +66,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         return record;
     }
 
-    private String prevalidateAccountFormat(TrxRecord record) throws Exception {
+    private VerifyAccountFmtRespDto prevalidateAccountFormat(TrxRecord record) throws Exception {
         VerifyAccountFmtReqDto prevalAccountFormatDto = new VerifyAccountFmtReqDto();
         prevalAccountFormatDto.setAccount_identification(record.getIban());
         prevalAccountFormatDto.setCountry_code(record.getCountryCode());

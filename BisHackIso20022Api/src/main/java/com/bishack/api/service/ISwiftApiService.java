@@ -8,9 +8,10 @@ import com.bishack.api.dto.SwiftPrevalPurposeDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
+import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtRespDto;
 
 public interface ISwiftApiService {	
-	String swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception;
+	VerifyAccountFmtRespDto swiftPrevalAcFormat(VerifyAccountFmtReqDto swiftPrevalAcFormatDto) throws Exception;
 	VerifyAccountRespDto swiftPrevalAcVerify(VerifyAccountReqDto swiftPrevalAcVerifyDto, String bic) throws Exception;	
 	String swiftPrevalBic(SwiftPrevalBicDto swiftPrevalBicDto) throws Exception;	
 	String swiftPrevalPurposeCd(SwiftPrevalPurposeCdDto swiftPrevalPurposeCdDto) throws Exception;	
