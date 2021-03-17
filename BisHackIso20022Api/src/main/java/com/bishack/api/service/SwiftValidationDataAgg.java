@@ -30,10 +30,25 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         TrxRecord record = translateToTrxRecord(payRiskCalcReqDto);
 
         try {
-            VerifyAccountFmtRespDto verifyAccountFmtResponse = prevalidateAccountFormat(record);
-            LOG.debug("Account format verification result: {}", verifyAccountFmtResponse);
-            VerifyAccountRespDto verifyAccountResponse = prevalidateAccount(record);
-            LOG.debug("Account verification result: {}", verifyAccountResponse);
+            VerifyAccountFmtRespDto verifyCreditorAccountFmtResponse = null;
+            try {
+                verifyCreditorAccountFmtResponse = prevalidateAccountFormat(record);
+                LOG.debug("Account format verification result: {}", verifyCreditorAccountFmtResponse);
+            } catch (Exception e) {
+                LOG.warn("Swift call encountered exception: {}", e);
+                // For demo we don't want to bother with handling this. Rating model is somewhat mocked so
+                // it won't cause issues.
+            }
+
+            VerifyAccountRespDto verifyCreditorAccountResponse = null;
+            try {
+                verifyCreditorAccountResponse = prevalidateAccount(record);
+                LOG.debug("Account verification result: {}", verifyCreditorAccountResponse);
+            } catch (Exception e) {
+                LOG.warn("Swift call encountered exception: {}", e);
+                // For demo we don't want to bother with handling this. Rating model is somewhat mocked so
+                // it won't cause issues.
+            }
 
             // Translate to TrxRatingModelRequestDto instances if applicable.
             // This is hardcoded for demo.
@@ -63,7 +78,9 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
                 trxRatingModelRequestDtos.add(acctRating);
             }
         } catch (Exception e) {
-            LOG.error("Encountered exception: {}", e);
+            LOG.warn("Encountered exception: {}", e);
+            // We want to ignore this exception for demo's sake. Since our rating model is somewhat mocked.
+            
         }
 
         return trxRatingModelRequestDtos;
