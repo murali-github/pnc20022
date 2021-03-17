@@ -1,8 +1,6 @@
 package com.bishack.api.dto;
 
-import java.util.Map;
-
-import org.apache.commons.collections4.map.HashedMap;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,11 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PayRiskCalcResDto {
 	@JsonProperty("riskRecommendation")
 	private String riskRecommendation;
+
 	
-	@JsonProperty("riskRating")
-	private Integer riskRating;
-	
-	private Map<String, Integer> catScores;
+	private List<TrxRatingModelResponeDto> riskRatingDetails;
 
 	public String getRiskRecommendation() {
 		return riskRecommendation;
@@ -27,28 +23,18 @@ public class PayRiskCalcResDto {
 		this.riskRecommendation = riskRecommendation;
 	}
 
-	public Integer getRiskRating() {
-		return riskRating;
-	}
-
-	public void setRiskRating(Integer riskRating) {
-		this.riskRating = riskRating;
-	}
-
 	public PayRiskCalcResDto() {
 		super();
 	}
 
-	public Map<String, Integer> getCatScores() {
-		if (catScores == null) {
-			catScores = new HashedMap<>();
-		}
-		return catScores;
+	public List<TrxRatingModelResponeDto> getRiskRatingDetails() {
+		return riskRatingDetails;
 	}
 
-	public void setCatScores(Map<String, Integer> catScores) {
-		this.catScores = catScores;
+	public void setRiskRatingDetails(List<TrxRatingModelResponeDto> riskRatingDetails) {
+		this.riskRatingDetails = riskRatingDetails;
 	}
+	
 
 	
 }
