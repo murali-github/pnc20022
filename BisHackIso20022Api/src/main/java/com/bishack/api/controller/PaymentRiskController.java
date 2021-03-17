@@ -1,8 +1,5 @@
 package com.bishack.api.controller;
 
-import java.util.Arrays;
-
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.PayRiskCalcResDto;
 import com.bishack.api.service.IRiskCalcEngine;
-import com.bishack.api.service.IServiceConstants;
 
 @Controller
 public class PaymentRiskController {
@@ -31,14 +27,7 @@ public class PaymentRiskController {
     public ResponseEntity<PayRiskCalcResDto> calcPaymentRisk(@RequestBody PayRiskCalcReqDto reqDto) {
         PayRiskCalcResDto resDto = null;
         try {
-            // Only accept these two hard-coded source accounts for demo.
-            if (!CollectionUtils.containsAny(IServiceConstants.VALID_AC_NUMBERS, Arrays.asList(reqDto.getDebitorAccount())) || 
-            		!CollectionUtils.containsAny(IServiceConstants.VALID_AC_NUMBERS, Arrays.asList(reqDto.getCreditorAccount())) ) {
-                return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.BAD_REQUEST);
-            }
-
             resDto = riskCalcEngine.executeRiskAnalysis(reqDto);
-
             return new ResponseEntity<PayRiskCalcResDto>(resDto, HttpStatus.OK);
         } catch (Exception e) {
             LOG.error("Encountered exception: {}", e);
