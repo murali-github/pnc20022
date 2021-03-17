@@ -27,8 +27,46 @@ public class TrxRatingModelDto extends BaseDto {
 	private List<TrxRatingModelRequestDto> trxRatingModelRequestDtos;
 	private List<TrxRatingModelResponeDto> trxRatingModelResponeDtos;
 	
+	private List<String> category;
+
+    private List<Integer> score;
+	
 	private Integer overallScore;
 	private BigDecimal trxAmount;
+
+	
+	
+	public List<TrxRatingModelRequestDto> getTrxRatingModelRequestDtos() {
+		return trxRatingModelRequestDtos;
+	}
+
+	public void setTrxRatingModelRequestDtos(List<TrxRatingModelRequestDto> trxRatingModelRequestDtos) {
+		this.trxRatingModelRequestDtos = trxRatingModelRequestDtos;
+	}
+
+	public List<TrxRatingModelResponeDto> getTrxRatingModelResponeDtos() {
+		return trxRatingModelResponeDtos;
+	}
+
+	public void setTrxRatingModelResponeDtos(List<TrxRatingModelResponeDto> trxRatingModelResponeDtos) {
+		this.trxRatingModelResponeDtos = trxRatingModelResponeDtos;
+	}
+
+	public List<String> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<String> category) {
+		this.category = category;
+	}
+
+	public List<Integer> getScore() {
+		return score;
+	}
+
+	public void setScore(List<Integer> score) {
+		this.score = score;
+	}
 
 	public List<TrxRatingModelRequestDto> getTrxRatingModelRequestDto() {
 		return trxRatingModelRequestDtos;
