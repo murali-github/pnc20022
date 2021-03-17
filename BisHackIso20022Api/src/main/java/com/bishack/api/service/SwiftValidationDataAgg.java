@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.TrxRatingModelRequestDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
 import com.bishack.api.entity.TrxRecord;
 
@@ -30,7 +31,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         // TODO capture return value here
         try {
             prevalidateAccountFormat(record);
-            prevalidateAccount(record);
+            VerifyAccountRespDto verifyAccountResponse = prevalidateAccount(record);
         } catch (Exception e) {
             LOG.error("Encountered exception: {}", e);
         }
@@ -72,7 +73,7 @@ public class SwiftValidationDataAgg implements IRiskEngineDataAgg {
         return swiftApiService.swiftPrevalAcFormat(prevalAccountFormatDto);
     }
 
-    private String prevalidateAccount(TrxRecord record) throws Exception {
+    private VerifyAccountRespDto prevalidateAccount(TrxRecord record) throws Exception {
         VerifyAccountReqDto dto = new VerifyAccountReqDto();
         dto.setCreditorName(record.getCreditorName());
         // Request is in the scope of the payment initiation

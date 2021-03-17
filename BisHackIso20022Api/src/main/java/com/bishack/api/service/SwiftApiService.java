@@ -21,6 +21,7 @@ import com.bishack.api.dto.SwiftPrevalPurposeCdDto;
 import com.bishack.api.dto.SwiftPrevalPurposeDto;
 import com.bishack.api.dto.SwiftTokenDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
 
 @Service(value = "swiftApiService")
@@ -60,15 +61,12 @@ public class SwiftApiService implements ISwiftApiService {
 	}
 
 	@Override
-	public String swiftPrevalAcVerify(VerifyAccountReqDto swiftPrevalAcVerifyDto, String bic) throws Exception {
-		String response = null;
-		
+	public VerifyAccountRespDto swiftPrevalAcVerify(VerifyAccountReqDto swiftPrevalAcVerifyDto, String bic) throws Exception {
+	    VerifyAccountRespDto response = null;
 
 		if (swiftPrevalAcVerifyDto != null) {
-
 			SwiftTokenDto swiftTokenDto = swiftApiTokenService.getSwiftPrevalAuthToken();
 			if (swiftTokenDto != null && StringUtils.isNotBlank(swiftTokenDto.getAccess_token())) {
-
 				HttpHeaders headers = new HttpHeaders();
 				headers.add("Authorization", "Bearer " + swiftTokenDto.getAccess_token());
 				headers.setContentType(MediaType.APPLICATION_JSON);
@@ -76,12 +74,12 @@ public class SwiftApiService implements ISwiftApiService {
 
 				HttpEntity<VerifyAccountReqDto> request = new HttpEntity<>(swiftPrevalAcVerifyDto, headers);
 
-				ResponseEntity<String> responseEnt = swiftApiRestTemplate.exchange(
+				ResponseEntity<VerifyAccountRespDto> responseEnt = swiftApiRestTemplate.exchange(
 						"https://sandbox.swift.com/swift-preval-pilot/v2/accounts/verification", HttpMethod.POST,
-						request, String.class);
-				String responseBody = responseEnt.getBody();
+						request, VerifyAccountRespDto.class);
+				response = responseEnt.getBody();
+				String responseBody = response.toString();
 				LOG.debug("Swift Preval Account returned status code {} - Content: {}", responseEnt.getStatusCode(), responseBody);
-				response = responseBody;
 			}
 		}
 

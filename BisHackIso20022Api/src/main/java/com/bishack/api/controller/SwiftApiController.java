@@ -18,6 +18,7 @@ import com.bishack.api.dto.SwiftPrevalPurposeCdDto;
 import com.bishack.api.dto.SwiftPrevalPurposeDto;
 import com.bishack.api.dto.SwiftTokenDto;
 import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountReqDto;
+import com.bishack.api.dto.swift.prevalidation.account.VerifyAccountRespDto;
 import com.bishack.api.dto.swift.prevalidation.accountfmt.VerifyAccountFmtReqDto;
 import com.bishack.api.service.ISwiftApiService;
 import com.bishack.api.service.ISwiftApiTokenService;
@@ -59,9 +60,9 @@ public class SwiftApiController {
 	}
     
     @PostMapping(path="/swiftPrevalAcVerify", headers={"Accept=application/json", "Content-Type=application/json"})
-	public ResponseEntity<String> swiftPrevalAcVerify(@RequestBody Optional<VerifyAccountReqDto>  swiftPrevalAcFormatDto) throws Exception {      	
-    	String respone= swiftApiService.swiftPrevalAcVerify(swiftPrevalAcFormatDto.get(), null); // TODO this won't work unless we pass bic. Not sure if we need this class.
-		return new ResponseEntity<String>(respone, HttpStatus.OK);
+	public ResponseEntity<VerifyAccountRespDto> swiftPrevalAcVerify(@RequestBody Optional<VerifyAccountReqDto>  swiftPrevalAcFormatDto) throws Exception {      	
+    	VerifyAccountRespDto respone= swiftApiService.swiftPrevalAcVerify(swiftPrevalAcFormatDto.get(), null); // TODO this won't work unless we pass bic. Not sure if we need this class.
+		return new ResponseEntity<VerifyAccountRespDto>(respone, HttpStatus.OK);
 	}
     
     
