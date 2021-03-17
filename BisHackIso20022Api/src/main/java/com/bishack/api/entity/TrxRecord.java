@@ -6,105 +6,180 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class TrxRecord {
-	@Id
-	String id;
-	private String institutionName;
-	private String creditorAccount;
-	private String creditorName;
-	private String uuid;
-	private String amount;
-	private String institutionId;
-	private String countryCode;
-	private String iban;
-	private String bankId;
-	private String bankIdCode;
+    @Id
+    String id;
 
-	public String getId() {
-		return id;
-	}
+    private String creditorAccount;
+    private String creditorName;
+    private String creditorIban;
+    private String creditorBankId;
+    private String creditorBankIdCode;
+    private String creditorInstitutionName;
+    private String creditorInstitutionId;
+    private String creditorCountryCode;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String debitorAccount;
+    private String debitorName;
+    private String debitorIban;
+    private String debitorBankId;
+    private String debitorBankIdCode;
+    private String debitorInstitutionName;
+    private String debitorInstitutionId;
+    private String debitorCountryCode;
 
-	public String getInstitutionName() {
-		return institutionName;
-	}
+    private String uuid;
+    private String amount;
 
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getCreditorAccount() {
-		return creditorAccount;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setCreditorAccount(String creditorAccount) {
-		this.creditorAccount = creditorAccount;
-	}
+    public String getCreditorAccount() {
+        return creditorAccount;
+    }
 
-	public String getCreditorName() {
-		return creditorName;
-	}
+    public void setCreditorAccount(String creditorAccount) {
+        this.creditorAccount = creditorAccount;
+    }
 
-	public void setCreditorName(String creditorName) {
-		this.creditorName = creditorName;
-	}
+    public String getCreditorName() {
+        return creditorName;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public void setCreditorName(String creditorName) {
+        this.creditorName = creditorName;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public String getCreditorIban() {
+        return creditorIban;
+    }
 
-	public String getAmount() {
-		return amount;
-	}
+    public void setCreditorIban(String creditorIban) {
+        this.creditorIban = creditorIban;
+    }
 
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
+    public String getCreditorBankId() {
+        return creditorBankId;
+    }
 
-	public String getInstitutionId() {
-		return institutionId;
-	}
+    public void setCreditorBankId(String creditorBankId) {
+        this.creditorBankId = creditorBankId;
+    }
 
-	public void setInstitutionId(String institutionId) {
-		this.institutionId = institutionId;
-	}
+    public String getCreditorBankIdCode() {
+        return creditorBankIdCode;
+    }
 
-	public String getCountryCode() {
-		return countryCode;
-	}
+    public void setCreditorBankIdCode(String creditorBankIdCode) {
+        this.creditorBankIdCode = creditorBankIdCode;
+    }
 
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
+    public String getCreditorInstitutionName() {
+        return creditorInstitutionName;
+    }
 
-	public String getIban() {
-		return iban;
-	}
+    public void setCreditorInstitutionName(String creditorInstitutionName) {
+        this.creditorInstitutionName = creditorInstitutionName;
+    }
 
-	public void setIban(String iban) {
-		this.iban = iban;
-	}
+    public String getCreditorInstitutionId() {
+        return creditorInstitutionId;
+    }
 
-	public String getBankId() {
-		return bankId;
-	}
+    public void setCreditorInstitutionId(String creditorInstitutionId) {
+        this.creditorInstitutionId = creditorInstitutionId;
+    }
 
-	public void setBankId(String bankId) {
-		this.bankId = bankId;
-	}
+    public String getCreditorCountryCode() {
+        return creditorCountryCode;
+    }
 
-	public String getBankIdCode() {
-		return bankIdCode;
-	}
+    public void setCreditorCountryCode(String creditorCountryCode) {
+        this.creditorCountryCode = creditorCountryCode;
+    }
 
-	public void setBankIdCode(String bankIdCode) {
-		this.bankIdCode = bankIdCode;
-	}
+    public String getDebitorAccount() {
+        return debitorAccount;
+    }
+
+    public void setDebitorAccount(String debitorAccount) {
+        this.debitorAccount = debitorAccount;
+    }
+
+    public String getDebitorName() {
+        return debitorName;
+    }
+
+    public void setDebitorName(String debitorName) {
+        this.debitorName = debitorName;
+    }
+
+    public String getDebitorIban() {
+        return debitorIban;
+    }
+
+    public void setDebitorIban(String debitorIban) {
+        this.debitorIban = debitorIban;
+    }
+
+    public String getDebitorBankId() {
+        return debitorBankId;
+    }
+
+    public void setDebitorBankId(String debitorBankId) {
+        this.debitorBankId = debitorBankId;
+    }
+
+    public String getDebitorBankIdCode() {
+        return debitorBankIdCode;
+    }
+
+    public void setDebitorBankIdCode(String debitorBankIdCode) {
+        this.debitorBankIdCode = debitorBankIdCode;
+    }
+
+    public String getDebitorInstitutionName() {
+        return debitorInstitutionName;
+    }
+
+    public void setDebitorInstitutionName(String debitorInstitutionName) {
+        this.debitorInstitutionName = debitorInstitutionName;
+    }
+
+    public String getDebitorInstitutionId() {
+        return debitorInstitutionId;
+    }
+
+    public void setDebitorInstitutionId(String debitorInstitutionId) {
+        this.debitorInstitutionId = debitorInstitutionId;
+    }
+
+    public String getDebitorCountryCode() {
+        return debitorCountryCode;
+    }
+
+    public void setDebitorCountryCode(String debitorCountryCode) {
+        this.debitorCountryCode = debitorCountryCode;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
 }

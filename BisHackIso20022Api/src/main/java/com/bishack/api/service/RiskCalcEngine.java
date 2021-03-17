@@ -18,7 +18,8 @@ import com.bishack.api.dto.PayRiskCalcReqDto;
 import com.bishack.api.dto.PayRiskCalcResDto;
 import com.bishack.api.dto.TrxRatingModelDto;
 import com.bishack.api.dto.TrxRatingModelRequestDto;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.bishack.api.dto.TrxRatingModelResponeDto;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service(value = "riskCalcEngine")
@@ -58,28 +59,32 @@ public class RiskCalcEngine implements IRiskCalcEngine {
 						HttpMethod.POST, request, String.class);
 				ObjectMapper objectMapper = new ObjectMapper();
 				
-				String jsonStr = StringUtils.removeStart(responseEnt.getBody(), "[");
-				jsonStr = StringUtils.removeEnd(jsonStr, "]");
+				String jsonStr = responseEnt.getBody();
+				//jsonStr = "[{\"category\":[\"SWIFT_VALIDATION\"],\"score\":[5]},{\"category\":[\"SWIFT_COMPLIANCE\"],\"score\":[6]},{\"category\":[\"INTERNAL_COMPLIANCE\"],\"score\":[7]},{\"category\":[\"INTERNAL_TRX_HIST\"],\"score\":[57]},{\"category\":[\"OVERALL_SCORE\"],\"score\":[6]}]";
+						
+				jsonStr = StringUtils.remove(jsonStr, "[");
+				jsonStr = StringUtils.remove(jsonStr, "]");
+				jsonStr = "[" +jsonStr +"]";
+				
+				List<TrxRatingModelResponeDto> trxRatingModelDtoResp = objectMapper.readValue(jsonStr, new TypeReference<List<TrxRatingModelResponeDto>>(){});
 				
 				
-				TrxRatingModelDto trxRatingModelDtoResp = objectMapper.readValue(jsonStr, TrxRatingModelDto.class);
-				
-				if (trxRatingModelDtoResp != null && CollectionUtils.isNotEmpty(trxRatingModelDtoResp.getCategory()) && 
-						CollectionUtils.isNotEmpty(trxRatingModelDtoResp.getScore()) && 
-						trxRatingModelDtoResp.getCategory().size() == trxRatingModelDtoResp.getScore().size()) {
-					if (trxRatingModelDtoResp.getOverallScore() != null) {
-						if (payRiskCalcResDto.getRiskRating() <= 5) {
-							payRiskCalcResDto.setRiskRecommendation(IServiceConstants.RATING_REC_PROCEED);
-						} else if (payRiskCalcResDto.getRiskRating() <= 8) {
-							payRiskCalcResDto.setRiskRecommendation(IServiceConstants.RATING_REC_REVIEW);
-						} else {
-							payRiskCalcResDto.setRiskRecommendation(IServiceConstants.RATING_REC_REJECT);
+				if (CollectionUtils.isNotEmpty(trxRatingModelDtoResp)) {
+					payRiskCalcResDto.setRiskRatingDetails(trxRatingModelDtoResp);
+					for (TrxRatingModelResponeDto trxRatingDto :trxRatingModelDtoResp ) {
+						if (IServiceConstants.CAT_OVERALL_SCORE.equalsIgnoreCase(trxRatingDto.getCategory())) {
+							if (trxRatingDto.getScore() != null) {
+								if (trxRatingDto.getScore() <= 5) {
+									payRiskCalcResDto.setRiskRecommendation(IServiceConstants.RATING_REC_PROCEED);
+								} else if (trxRatingDto.getScore() <= 8) {
+									payRiskCalcResDto.setRiskRecommendation(IServiceConstants.RATING_REC_REVIEW);
+								} else {
+									payRiskCalcResDto.setRiskRecommendation(IServiceConstants.RATING_REC_REJECT);
+								}
+							}
 						}
 					}
-					
-					for (Integer index =0 ; index < trxRatingModelDtoResp.getCategory().size() ; index ++) {
-						payRiskCalcResDto.getCatScores().put(trxRatingModelDtoResp.getCategory().get(index), trxRatingModelDtoResp.getScore().get(index));
-					}
+		
 					
 				}
 				

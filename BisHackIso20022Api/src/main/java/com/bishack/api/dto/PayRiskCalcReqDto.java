@@ -9,78 +9,81 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PayRiskCalcReqDto {
-	@JsonProperty("institutionName")
-	private String institutionName;
-	@JsonProperty("creditorAccount")
-	private String creditorAccount;
-	@JsonProperty("creditorName")
-	private String creditorName;
-	@JsonProperty("amount")
-	private String amount;
-	
-	@JsonProperty("uuid")
-	private String uuid = UUID.randomUUID().toString();
-	
-	@JsonProperty("debitorAccount")
-	private String debitorAccount;
+    @JsonProperty("institutionName")
+    private String institutionName;
 
-	@JsonProperty("institutionName")
-	public String getInstitutionName() {
-		return institutionName;
-	}
+    @JsonProperty("creditorAccount")
+    private String creditorAccount;
 
-	@JsonProperty("institutionName")
-	public void setInstitutionName(String institutionName) {
-		this.institutionName = institutionName;
-	}
+    @JsonProperty("creditorName")
+    private String creditorName;
 
-	@JsonProperty("creditorAccount")
-	public String getCreditorAccount() {
-		return creditorAccount;
-	}
+    @JsonProperty("amount")
+    private String amount;
 
-	@JsonProperty("creditorAccount")
-	public void setCreditorAccount(String creditorAccount) {
-		this.creditorAccount = creditorAccount;
-	}
+    @JsonProperty("uuid")
+    private String uuid = UUID.randomUUID().toString();
 
-	@JsonProperty("creditorName")
-	public String getCreditorName() {
-		return creditorName;
-	}
+    @JsonProperty("debitorAccount")
+    private String debitorAccount;
 
-	@JsonProperty("creditorName")
-	public void setCreditorName(String creditorName) {
-		this.creditorName = creditorName;
-	}
+    @JsonProperty("debitorName")
+    private String debitorName;
 
-	@JsonProperty("uuid")
-	public String getUuid() {
-		return uuid;
-	}
+    public String getInstitutionName() {
+        return institutionName;
+    }
 
-	@JsonProperty("uuid")
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
 
-	@JsonProperty("amount")
-	public String getAmount() {
-		return amount;
-	}
+    public String getCreditorAccount() {
+        return creditorAccount;
+    }
 
-	@JsonProperty("amount")
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
+    public void setCreditorAccount(String creditorAccount) {
+        this.creditorAccount = creditorAccount;
+    }
 
-	public String getDebitorAccount() {
-		return debitorAccount;
-	}
+    public String getCreditorName() {
+        return creditorName;
+    }
 
-	public void setDebitorAccount(String debitorAccount) {
-		this.debitorAccount = debitorAccount;
-	}
-	
-	
+    public void setCreditorName(String creditorName) {
+        this.creditorName = creditorName;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getDebitorAccount() {
+        return debitorAccount;
+    }
+
+    public void setDebitorAccount(String debitorAccount) {
+        this.debitorAccount = debitorAccount;
+    }
+
+    public String getDebitorName() {
+        return debitorName;
+    }
+
+    public void setDebitorName(String debitorName) {
+        this.debitorName = debitorName;
+    }
+
 }
