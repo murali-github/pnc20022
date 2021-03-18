@@ -53,7 +53,7 @@ export class TransactionModalComponent {
       {category:"SWIFT_COMPLIANCE",attrName:"SRC_AC_VERIFICATION",value:"LOW"},
       {category:"SWIFT_VALIDATION",attrName:"BENEFICIARY_AC_FORMAT",value:"LOW"},
       {category:"SWIFT_VALIDATION",attrName:"SRC_AC_FORMAT",value:"LOW"}]}*/
-    this.responseData.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
+    this.responseData.riskRatingDetails.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
       if(element.category == "CURRENT_TRX" && element.attrName == "BENEFICIARY_AC")
       {
         this.currentTrxBen = element.value;
@@ -97,7 +97,7 @@ export class TransactionModalComponent {
 
     });
 
-    this.responseData.riskRatingDetails.forEach(element => {
+    this.responseData.riskRatingDetails.riskRatingDetails.forEach(element => {
       if(element.category == "SWIFT_VALIDATION")
       {
         this.swiftValidationScore = element.score;
