@@ -27,6 +27,12 @@ export class TransactionModalComponent {
   swiftValidationBAF;
   swiftValidationSAF;
 
+  swiftValidationScore;
+  swiftComplianceScore;
+  internalComplianceScore;
+  internalTranHistScore;
+  overallScore;
+
   constructor(
     public dialogRef: MatDialogRef<TransactionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public httpClient: HttpClient) { console.log("built")
@@ -47,7 +53,7 @@ export class TransactionModalComponent {
       {category:"SWIFT_COMPLIANCE",attrName:"SRC_AC_VERIFICATION",value:"LOW"},
       {category:"SWIFT_VALIDATION",attrName:"BENEFICIARY_AC_FORMAT",value:"LOW"},
       {category:"SWIFT_VALIDATION",attrName:"SRC_AC_FORMAT",value:"LOW"}]}*/
-    this.responseData.trxRatingModelRequestDtos.forEach(element => {
+    this.responseData.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
       if(element.category == "CURRENT_TRX" && element.attrName == "BENEFICIARY_AC")
       {
         this.currentTrxBen = element.value;
@@ -89,6 +95,29 @@ export class TransactionModalComponent {
         this.swiftValidationSAF = element.value;
       }
 
+    });
+
+    this.responseData.riskRatingDetails.forEach(element => {
+      if(element.category == "SWIFT_VALIDATION")
+      {
+        this.swiftValidationScore = element.score;
+      }
+      if(element.category == "SWIFT_COMPLIANCE")
+      {
+        this.swiftComplianceScore = element.score;
+      }
+      if(element.category == "INTERNAL_COMPLIANCE")
+      {
+        this.internalComplianceScore = element.score;
+      }
+      if(element.category == "INTERNAL_TRX_HIST")
+      {
+        this.internalTranHistScore = element.score;
+      }
+      if(element.category == "OVERALL_SCORE")
+      {
+        this.overallScore = element.score;
+      }
     });
 
 

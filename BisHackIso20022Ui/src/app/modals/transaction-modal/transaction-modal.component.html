@@ -29,6 +29,22 @@
     <td><b>Swift Validation Source Account Format :</b> {{swiftValidationSAF}}</td>
   </tr>
 </table>
+
+<hr>
+
+<table>
+  <tr>
+    <td><b>Swift Compliance Score :</b> {{swiftComplianceScore}}</td>
+    <td><<b>Swift Validation Score :</b> {{swiftValidationScore}}</td>
+  </tr>
+  <tr>
+    <td><b>Internal Transaction History :</b {{internalTranHistScore}}></td>
+    <td><b>Internal Compliance :</b> {{internalComplianceScore}}</td>
+  </tr>
+</table>
+<div class="d-flex justify-content-center">
+  <b>Overall Score :</b> {{overallScore}}
+</div>
 <br>
 <div class="d-flex justify-content-center" *ngIf="data.status=='REVIEW'">
 
