@@ -1,3 +1,24 @@
+<div class="d-flex justify-content-center">
+  <b>Genuineness Score :</b> {{overallScore}} ({{data.status}})
+</div>
+<hr>
+<div class="d-flex justify-content-center">
+  <h5>Rating Breakdown:</h5>
+</div>
+<table>
+  <tr>
+    <td><b>Swift Compliance Beneficiary Account Verification :</b> {{swiftComplianceBAV}} </td>
+    <td><b>Swift Validation Beneficiary Account Format :</b> {{swiftValidationBAF}}</td>
+  </tr>
+  <tr>
+    <td><b>Swift Compliance Source Account Verification :</b> {{swiftComplianceSAV}}</td>
+    <td><b>Swift Validation Source Account Format :</b> {{swiftValidationSAF}}</td>
+  </tr>
+</table>
+<hr>
+<div class="d-flex justify-content-center">
+  <h5>Rating Reasons:</h5>
+</div>
 <table>
   <tr>
     <td><b>Current Transaction Beneficiary Account :</b> {{currentTrxBen}}</td>
@@ -21,19 +42,6 @@
 
 <table>
   <tr>
-    <td><b>Swift Compliance Beneficiary Account Verification :</b> {{swiftComplianceBAV}} </td>
-    <td><b>Swift Validation Beneficiary Account Format :</b> {{swiftValidationBAF}}</td>
-  </tr>
-  <tr>
-    <td><b>Swift Compliance Source Account Verification :</b> {{swiftComplianceSAV}}</td>
-    <td><b>Swift Validation Source Account Format :</b> {{swiftValidationSAF}}</td>
-  </tr>
-</table>
-
-<hr>
-
-<table>
-  <tr>
     <td><b>Swift Compliance Score :</b> {{swiftComplianceScore}}</td>
     <td><b>Swift Validation Score :</b> {{swiftValidationScore}}</td>
   </tr>
@@ -42,9 +50,7 @@
     <td><b>Internal Compliance :</b> {{internalComplianceScore}}</td>
   </tr>
 </table>
-<div class="d-flex justify-content-center">
-  <b>Overall Score :</b> {{overallScore}}
-</div>
+
 <br>
 <div class="d-flex justify-content-center" *ngIf="data.status=='REVIEW'">
 

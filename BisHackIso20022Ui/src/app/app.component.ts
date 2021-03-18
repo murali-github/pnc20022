@@ -9,16 +9,16 @@ import * as uuid from 'uuid';
 
 
 const TRANSACTION_DATA = [
-  {institutionName:"ING-DIBA AG (RETAIL BANKING)", amount: "1500", status: "PROCEED",
-  creditorAccount: "500105170123456789", debitorAccount:"123110040000109876543210"},
-  {institutionName: "Black Forest Bank", creditorAccount: "100000010123123123", amount: "1000",
-  debitorAccount: "123110040000109876543210", status: "PROCEED"},
-  {institutionName: "ING-DIBA AG (RETAIL BANKING)", amount: "15000", status: "REVIEW",
-  creditorAccount: "500105170123456789", debitorAccount: "123110040000109876543210"},
-  {institutionName: "Black Forest Bank", amount: "200000", status: "REJECT",
-  creditorAccount: "100000010123123123", debitorAccount: "123110040000109876543210"},
-  {institutionName: "Black Forest Bank", amount: "600", status: "REJECT",
-  creditorAccount: "100000010123123124", debitorAccount: "123110040000109876543210"}
+  {institutionName:"ING-DIBA AG (RETAIL BANKING)", amount: "1500", status: "PROCEED", benCountry: "DE",
+  creditorAccount: "500105170123456789", debitorAccount:"123110040000109876543210", sourceCountry: "PO"},
+  {institutionName: "Black Forest Bank", creditorAccount: "100000010123123123", amount: "1000", benCountry: "DE",
+  debitorAccount: "123110040000109876543210", status: "PROCEED", sourceCountry: "PO"},
+  {institutionName: "ING-DIBA AG (RETAIL BANKING)", amount: "15000", status: "REVIEW", benCountry: "DE",
+  creditorAccount: "500105170123456789", debitorAccount: "123110040000109876543210", sourceCountry: "PO"},
+  {institutionName: "Black Forest Bank", amount: "200000", status: "REJECT", benCountry: "DE",
+  creditorAccount: "100000010123123123", debitorAccount: "123110040000109876543210", sourceCountry: "PO"},
+  {institutionName: "Black Forest Bank", amount: "600", status: "REJECT", benCountry: "DE",
+  creditorAccount: "100000010123123124", debitorAccount: "123110040000109876543210", sourceCountry: "PO"}
 ];
 
 
@@ -38,7 +38,7 @@ export class AppComponent {
   })
 
   tableData = TRANSACTION_DATA
-  columnsToDisplay: string[] = ["institutionName", "amount", "creditorAccount", "debitorAccount", "status"]
+  columnsToDisplay: string[] = ["institutionName", "benCountry", "sourceCountry", "amount", "creditorAccount", "debitorAccount", "status"]
 
   constructor (private formBuilder: FormBuilder, public httpClient: HttpClient, public dialog: MatDialog
     ) {}
