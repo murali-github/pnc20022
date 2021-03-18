@@ -5,17 +5,38 @@
 
 </div>
 <div class="container">
-  <h2 class="col-md">Please Enter the Information for Risk Assessment: </h2>
+  <h2 class="col-md">Transactions to Review: </h2>
 
-<form [formGroup]="formData" (ngSubmit)="onSubmit()">
-  <div><input class="form-control" type="text" placeholder="Institution Name" formControlName="institutionName"></div>
 
-  <div><input class="form-control" type="text" placeholder="Creditor Account" formControlName="creditorAccount"></div>
-  <div><input class="form-control" type="text" placeholder="Creditor Name" formControlName="creditorName"></div>
-  <div><input class="form-control" type="number" placeholder="Amount" formControlName="amount"></div>
-  <div><input class="form-control" type="text" placeholder="Debitor Account" formControlName="debitorAccount"></div>
-  <div><button class="button" type="submit">Submit</button></div>
-</form>
+<table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+  <ng-container matColumnDef="institutionName">
+    <th mat-header-cell *matHeaderCellDef> Institution Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.institutionName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> Amount </th>
+    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+  </ng-container>
+  <ng-container matColumnDef="creditorAccount">
+    <th mat-header-cell *matHeaderCellDef> Creditor Account </th>
+    <td mat-cell *matCellDef="let element"> {{element.creditorAccount}} </td>
+  </ng-container>
+  <ng-container matColumnDef="debitorAccount">
+    <th mat-header-cell *matHeaderCellDef> Debitor Account </th>
+    <td mat-cell *matCellDef="let element"> {{element.debitorAccount}} </td>
+  </ng-container>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" (click)="onClick(row)" [ngClass]="{
+          'proceed' : row.status == 'PROCEED',
+          'review' : row.status == 'REVIEW',
+          'reject' : row.status == 'REJECT'
+       }"></tr>
+</table>
 </div>
 <ul>
 

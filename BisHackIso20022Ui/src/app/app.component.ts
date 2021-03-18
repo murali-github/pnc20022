@@ -1,7 +1,26 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+
+import { TransactionModalComponent } from './modals/transaction-modal/transaction-modal.component';
 import * as uuid from 'uuid';
+
+
+
+const TRANSACTION_DATA = [
+  {institutionName:"ING-DIBA AG (RETAIL BANKING)", amount: "1500", status: "PROCEED",
+  creditorAccount: "500105170123456789", debitorAccount:"123110040000109876543210"},
+  {institutionName: "Black Forest Bank", creditorAccount: "100000010123123123", amount: "1000",
+  debitorAccount: "123110040000109876543210", status: "PROCEED"},
+  {institutionName: "ING-DIBA AG (RETAIL BANKING)", amount: "15000", status: "REVIEW",
+  creditorAccount: "500105170123456789", debitorAccount: "123110040000109876543210"},
+  {institutionName: "Black Forest Bank", amount: "200000", status: "REJECT",
+  creditorAccount: "100000010123123123", debitorAccount: "123110040000109876543210"},
+  {institutionName: "Black Forest Bank", amount: "600", status: "REJECT",
+  creditorAccount: "100000010123123124", debitorAccount: "123110040000109876543210"}
+];
+
 
 @Component({
   selector: 'app-root',
@@ -18,7 +37,10 @@ export class AppComponent {
     debitorAccount: ''
   })
 
-  constructor (private formBuilder: FormBuilder, public httpClient: HttpClient
+  tableData = TRANSACTION_DATA
+  columnsToDisplay: string[] = ["institutionName", "amount", "creditorAccount", "debitorAccount", "status"]
+
+  constructor (private formBuilder: FormBuilder, public httpClient: HttpClient, public dialog: MatDialog
     ) {}
 
     onSubmit(): void {
@@ -32,5 +54,19 @@ export class AppComponent {
         console.log(res);
       });
     }
+
+    onClick(row) {
+      console.log(row)
+      const dialogRef = this.dialog.open(TransactionModalComponent, {
+      width: '75%',
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      row.status = result.status;
+
+    });
+  }
 
 }
