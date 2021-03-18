@@ -33,6 +33,8 @@ export class TransactionModalComponent {
   internalTranHistScore;
   overallScore;
 
+  riskRecommendation;
+
   constructor(
     public dialogRef: MatDialogRef<TransactionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public httpClient: HttpClient) { console.log("built")
@@ -42,7 +44,7 @@ export class TransactionModalComponent {
       console.log(res);
       this.responseData = res;
 
-
+      this.riskRecommendation = this.responseData.riskRecommendation;
       this.responseData.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
         if(element.category == "CURRENT_TRX" && element.attrName == "BENEFICIARY_AC")
         {
