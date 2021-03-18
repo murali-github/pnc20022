@@ -31,7 +31,7 @@ export class TransactionModalComponent {
     public dialogRef: MatDialogRef<TransactionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public httpClient: HttpClient) { console.log("built")
     this.transactionData = data;
-    let response = this.httpClient.post<any>("http:/localhost:8080/paymentRisk", data).pipe();
+    let response = this.httpClient.post<any>("http://localhost:8080/paymentRisk", data).pipe();
     response.subscribe(res => {
       console.log(res);
       this.responseData = res;
