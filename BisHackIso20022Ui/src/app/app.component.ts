@@ -38,7 +38,7 @@ export class AppComponent {
   })
 
   tableData = TRANSACTION_DATA
-  columnsToDisplay: string[] = ["institutionName", "benCountry", "sourceCountry", "amount", "creditorAccount", "debitorAccount", "status"]
+  columnsToDisplay: string[] = ["debitorAccount", "sourceCountry", "creditorAccount", "institutionName", "benCountry", "amount", "status"]
 
   constructor (private formBuilder: FormBuilder, public httpClient: HttpClient, public dialog: MatDialog
     ) {}
