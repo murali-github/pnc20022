@@ -42,7 +42,7 @@ public class RestConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
+       // config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
         config.addAllowedOrigin(REQUEST_ORIGIN);
         config.addAllowedMethod(METHOD_OPTIONS);

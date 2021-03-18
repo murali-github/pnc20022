@@ -1,18 +1,15 @@
 package com.bishack.api.dto;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.bishack.api.service.IServiceConstants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,15 +41,6 @@ public class TrxRatingModelDto extends BaseDto {
 		this.trxRatingModelRequestDtos = trxRatingModelRequestDtos;
 	}
 
-	
-
-	public List<TrxRatingModelRequestDto> getTrxRatingModelRequestDto() {
-		return trxRatingModelRequestDtos;
-	}
-
-	public void setTrxRatingModelRequestDto(List<TrxRatingModelRequestDto> trxRatingModelRequestDto) {
-		this.trxRatingModelRequestDtos = trxRatingModelRequestDto;
-	}
 
 
 

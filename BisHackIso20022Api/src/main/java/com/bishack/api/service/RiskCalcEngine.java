@@ -49,7 +49,7 @@ public class RiskCalcEngine implements IRiskCalcEngine {
 
 				RestTemplate restTemplate = new RestTemplate();
 				TrxRatingModelDto trxRatingModelDto = new TrxRatingModelDto();
-				trxRatingModelDto.setTrxRatingModelRequestDto(trxRatingModelRequestDtos);
+				trxRatingModelDto.setTrxRatingModelRequestDtos(trxRatingModelRequestDtos);
 				HttpHeaders headers = new HttpHeaders();				
 				headers.setContentType(MediaType.APPLICATION_JSON);				
 				HttpEntity<TrxRatingModelDto> request = new HttpEntity<>(trxRatingModelDto, headers);

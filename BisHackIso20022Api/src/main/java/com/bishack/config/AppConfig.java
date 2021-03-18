@@ -56,6 +56,8 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
     private CacheManager cacheManager;
+	
+	
 
 	/**
 	 * This CCLWebConfig sets the SecurityContextHolder Mode to
