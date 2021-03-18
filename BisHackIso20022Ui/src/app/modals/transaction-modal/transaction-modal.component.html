@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <b>Genuineness Score :</b> {{overallScore}} ({{data.status}})
+</div>
+<hr>
+<div class="d-flex justify-content-center">
+  <h5>Rating Breakdown:</h5>
+</div>
+<table>
+  <tr>
+    <td><b>Swift Compliance Beneficiary Account Verification :</b> {{swiftComplianceBAV}} </td>
+    <td><b>Swift Validation Beneficiary Account Format :</b> {{swiftValidationBAF}}</td>
+  </tr>
+  <tr>
+    <td><b>Swift Compliance Source Account Verification :</b> {{swiftComplianceSAV}}</td>
+    <td><b>Swift Validation Source Account Format :</b> {{swiftValidationSAF}}</td>
+  </tr>
+</table>
+<hr>
+<div class="d-flex justify-content-center">
+  <h5>Rating Reasons:</h5>
+</div>
+<table>
+  <tr>
+    <td><b>Current Transaction Beneficiary Account :</b> {{currentTrxBen}}</td>
+    <td><b>Internal Compliance High Risk Beneficiary Country :</b> {{internalComplianceHRBC}}</td>
+  </tr>
+  <tr>
+      <td><b>Current Transaction Source Account :</b> {{currentTrxSrc}}</td>
+      <td></td>
+  </tr>
+  <tr>
+    <td><b>Current Transaction Ammount :</b> {{currentTrxAmm}}</td>
+    <td><b>Internal Transaction History Source Average Transaction Amount :</b> {{internalTranHistSATA}}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>Internal Transaction History Total Transaction Amount :</b> {{internalTranHistSTTA}}</td>
+  </tr>
+</table>
+
+<hr>
+
+<table>
+  <tr>
+    <td><b>Swift Compliance Score :</b> {{swiftComplianceScore}}</td>
+    <td><b>Swift Validation Score :</b> {{swiftValidationScore}}</td>
+  </tr>
+  <tr>
+    <td><b>Internal Transaction History :</b> {{internalTranHistScore}}</td>
+    <td><b>Internal Compliance :</b> {{internalComplianceScore}}</td>
+  </tr>
+</table>
+
+<br>
+<div class="d-flex justify-content-center" *ngIf="data.status=='REVIEW'">
+
+  <button type="button" name="button" mat-button (click)=onApprove()>Approve Transaction</button>
+
+</div>
