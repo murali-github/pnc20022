@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-transaction-modal',
@@ -7,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./transaction-modal.component.css']
 })
 export class TransactionModalComponent {
-  data: any;
+  transactionData: any;
   responseData: any;
 
   currentTrxBen;
@@ -27,8 +29,8 @@ export class TransactionModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<TransactionModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { console.log("built")
-    this.data = data;
+    @Inject(MAT_DIALOG_DATA) public data: any, public httpClient: HttpClient) { console.log("built")
+    this.transactionData = data;
     let response = this.httpClient.post<any>("http:/localhost:8080/paymentRisk", data).pipe();
     response.subscribe(res => {
       console.log(res);
@@ -95,7 +97,7 @@ export class TransactionModalComponent {
 
   onNoClick(): void {
     this.dialogRef.close({
-      status: this.data.status
+      status: this.transactionData.status
     });
   }
 
