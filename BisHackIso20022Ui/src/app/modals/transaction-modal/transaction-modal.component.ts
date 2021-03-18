@@ -42,7 +42,8 @@ export class TransactionModalComponent {
       console.log(res);
       this.responseData = res;
 
-      this.responseData.riskRatingDetails.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
+
+      this.responseData.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
         if(element.category == "CURRENT_TRX" && element.attrName == "BENEFICIARY_AC")
         {
           this.currentTrxBen = element.value;
@@ -86,7 +87,7 @@ export class TransactionModalComponent {
 
       });
 
-      this.responseData.riskRatingDetails.riskRatingDetails.forEach(element => {
+      this.responseData.riskRatingDetails.forEach(element => {
         if(element.category == "SWIFT_VALIDATION")
         {
           this.swiftValidationScore = element.score;
