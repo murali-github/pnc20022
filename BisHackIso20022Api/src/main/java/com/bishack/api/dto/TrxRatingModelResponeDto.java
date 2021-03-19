@@ -19,6 +19,7 @@ public class TrxRatingModelResponeDto extends BaseDto {
 	private static final long serialVersionUID = 1L;
 	private String category;
 	private Integer score;
+	private String reason;
 	
 	public String getCategory() {
 		return category;
@@ -31,6 +32,12 @@ public class TrxRatingModelResponeDto extends BaseDto {
 	}
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 	
 	

@@ -8,10 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.bishack.api.dto.PayRiskCalcReqDto;
@@ -26,6 +26,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RiskCalcEngine implements IRiskCalcEngine {
 	@Autowired
 	private List<IRiskEngineDataAgg> riskEngineDataAggs;
+	
+	@Autowired
+	private RestTemplate modelApiRestTemplate;
 
 	@Override
 	public PayRiskCalcResDto executeRiskAnalysis(PayRiskCalcReqDto payRiskCalcReqDto)  {
@@ -56,13 +59,24 @@ public class RiskCalcEngine implements IRiskCalcEngine {
 				System.out.println(objectMapper.writeValueAsString(trxRatingModelDto));
 				
 				
-				ResponseEntity<String> responseEnt = restTemplate.exchange(
+				MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<String, String>();
+				
+				requestBody.addIfAbsent("trxRatingModelRequestDtos", objectMapper.writeValueAsString(trxRatingModelDto));
+						
+		
+				String jsonStr = modelApiRestTemplate.postForObject("http://localhost:80/predict_score", requestBody, String.class, requestBody);
+				
+				/*ResponseEntity<String> responseEnt = restTemplate.exchange(
 						"http://localhost:80/predict_score",
-						HttpMethod.POST, request, String.class);
+						HttpMethod.GET, request, String.class);
+				
+				
+				String jsonStr = responseEnt.getBody();*/
+				
 				objectMapper = new ObjectMapper();
 				
-				String jsonStr = responseEnt.getBody();
-				//jsonStr = "[{\"category\":[\"SWIFT_VALIDATION\"],\"score\":[5]},{\"category\":[\"SWIFT_COMPLIANCE\"],\"score\":[6]},{\"category\":[\"INTERNAL_COMPLIANCE\"],\"score\":[7]},{\"category\":[\"INTERNAL_TRX_HIST\"],\"score\":[57]},{\"category\":[\"OVERALL_SCORE\"],\"score\":[6]}]";
+				
+				//String jsonStr = "[{\"category\":[\"SWIFT_VALIDATION\"],\"score\":[5]},{\"category\":[\"SWIFT_COMPLIANCE\"],\"score\":[6]},{\"category\":[\"INTERNAL_COMPLIANCE\"],\"score\":[7]},{\"category\":[\"INTERNAL_TRX_HIST\"],\"score\":[57]},{\"category\":[\"OVERALL_SCORE\"],\"score\":[6]}]";
 						
 				jsonStr = StringUtils.remove(jsonStr, "[");
 				jsonStr = StringUtils.remove(jsonStr, "]");

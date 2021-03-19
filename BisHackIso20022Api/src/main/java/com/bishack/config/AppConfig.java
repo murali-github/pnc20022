@@ -112,6 +112,20 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 		swiftApiKeyRestTemplate.getMessageConverters().add(formHttpMessageConverter);
 		return swiftApiKeyRestTemplate;
 	}
+	
+	
+	@Bean(name = "modelApiRestTemplate")
+	RestTemplate modelApiRestTemplate(RestTemplateBuilder restTemplateBuilder) {
+		RestTemplate modelApiRestTemplate = restTemplateBuilder.build();
+		List<ClientHttpRequestInterceptor> interceptors = modelApiRestTemplate.getInterceptors();
+		interceptors.add(new HeaderRequestInterceptor("Accept", MediaType.APPLICATION_JSON_VALUE));
+		interceptors.add(new HeaderRequestInterceptor("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE));
+
+		modelApiRestTemplate.setInterceptors(interceptors);
+		FormHttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
+		modelApiRestTemplate.getMessageConverters().add(formHttpMessageConverter);
+		return modelApiRestTemplate;
+	}
 
 	@Bean(name = "swiftApiRestTemplate")
 	RestTemplate swiftApiRestTemplate(RestTemplateBuilder restTemplateBuilder) {
