@@ -37,11 +37,17 @@ export class AppComponent {
     debitorAccount: ''
   })
 
-  tableData = TRANSACTION_DATA
+  tableData;
+  loading = true;
   columnsToDisplay: string[] = ["debitorAccount", "sourceCountry", "creditorAccount", "institutionName", "benCountry", "amount", "status"]
 
   constructor (private formBuilder: FormBuilder, public httpClient: HttpClient, public dialog: MatDialog
-    ) {}
+    ) {
+      setTimeout(() => {
+        this.tableData = TRANSACTION_DATA;
+        this.loading = false;
+      }, 1000);
+    }
 
     onSubmit(): void {
       this.formData.value.uuid = "aye2yes-" + uuid.v4();

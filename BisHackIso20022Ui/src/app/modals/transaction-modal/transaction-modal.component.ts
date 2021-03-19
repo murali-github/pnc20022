@@ -36,6 +36,8 @@ export class TransactionModalComponent {
 
   riskRecommendation;
 
+  loading = true;
+
   constructor(
     public dialogRef: MatDialogRef<TransactionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public httpClient: HttpClient) { console.log("built")
@@ -115,7 +117,7 @@ export class TransactionModalComponent {
           this.overallScore = element.score;
         }
       });
-
+      this.loading = false;
     });
 
 
