@@ -60,6 +60,8 @@
 <br>
 <div class="d-flex justify-content-center" *ngIf="data.status=='REVIEW'">
 
-  <button type="button" name="button" mat-button (click)=onApprove()>Approve Transaction</button>
+  <button mat-raised-button style="margin-right:20%;" (click)=onApprove()>Approve Transaction</button>
+  <button mat-raised-button (click)=onReject()>Reject Transaction</button>
+
 
 </div>

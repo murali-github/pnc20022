@@ -138,4 +138,10 @@ export class TransactionModalComponent {
     })
   }
 
+  onReject() {
+    this.dialogRef.close({
+      status: "REJECT"
+    })
+  }
+
 }
