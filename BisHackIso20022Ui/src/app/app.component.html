@@ -6,55 +6,52 @@
 </div>
 <div class="container">
   <div class="d-flex justify-content-center">
-    <h2>BIS: ISO20022 Hackathon - Team Aye2Yes</h2>
+    <h2>BIS: ISO20022 Hackathos - Team Aye2Yes</h2>
   </div>
   <br>
   <div class="d-flex justify-content-center">
     <h4>Cross Border Transaction - Internal Ops Review Dashboard</h4>
   </div>
 
-
+<div class="d-flex justify-content-center" *ngIf="loading==true">
+  <mat-spinner></mat-spinner>
+</div>
 <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
-  <!-- Source columns -->
-  <ng-container matColumnDef="debitorAccount">
-    <th mat-header-cell *matHeaderCellDef> Debtor Account </th>
-    <td mat-cell *matCellDef="let element"> {{element.debitorAccount}} </td>
-  </ng-container>
-  <ng-container matColumnDef="sourceCountry">
-    <th mat-header-cell *matHeaderCellDef> Debtor Country </th>
-    <td mat-cell *matCellDef="let element"> {{element.sourceCountry}} </td>
-  </ng-container>
-
-  <!-- Creditor columns -->
-  <ng-container matColumnDef="creditorAccount">
-    <th mat-header-cell *matHeaderCellDef> Beneficiary Account </th>
-    <td mat-cell *matCellDef="let element"> {{element.creditorAccount}} </td>
-  </ng-container>
   <ng-container matColumnDef="institutionName">
-    <th mat-header-cell *matHeaderCellDef> Beneficiary Institution Name </th>
+    <th mat-header-cell *matHeaderCellDef> Creditor Institution Name </th>
     <td mat-cell *matCellDef="let element"> {{element.institutionName}} </td>
   </ng-container>
   <ng-container matColumnDef="benCountry">
     <th mat-header-cell *matHeaderCellDef> Beneficiary Country </th>
     <td mat-cell *matCellDef="let element"> {{element.benCountry}} </td>
   </ng-container>
-
+  <ng-container matColumnDef="sourceCountry">
+    <th mat-header-cell *matHeaderCellDef> Source Country </th>
+    <td mat-cell *matCellDef="let element"> {{element.sourceCountry}} </td>
+  </ng-container>
   <ng-container matColumnDef="amount">
     <th mat-header-cell *matHeaderCellDef> Amount </th>
     <td mat-cell *matCellDef="let element"> {{element.amount | currency}} </td>
   </ng-container>
-
+  <ng-container matColumnDef="creditorAccount">
+    <th mat-header-cell *matHeaderCellDef> Creditor Account </th>
+    <td mat-cell *matCellDef="let element"> {{element.creditorAccount}} </td>
+  </ng-container>
+  <ng-container matColumnDef="debitorAccount">
+    <th mat-header-cell *matHeaderCellDef> Debitor Account </th>
+    <td mat-cell *matCellDef="let element"> {{element.debitorAccount}} </td>
+  </ng-container>
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> Genuine-ness&trade; Rating </th>
-    <td mat-cell *matCellDef="let element" [ngClass]="{
-          'proceed' : element.status == 'PROCEED',
-          'review' : element.status == 'REVIEW',
-          'reject' : element.status == 'REJECT'
-          }"> {{element.status}} </td>
+    <th mat-header-cell *matHeaderCellDef> Genuineness Rating </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" (click)="onClick(row)"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" (click)="onClick(row)" [ngClass]="{
+          'proceed' : row.status == 'PROCEED',
+          'review' : row.status == 'REVIEW',
+          'reject' : row.status == 'REJECT'
+       }"></tr>
 </table>
 </div>
 <ul>
