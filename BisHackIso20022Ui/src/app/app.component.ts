@@ -64,7 +64,7 @@ export class AppComponent {
     onClick(row) {
       console.log(row)
       const dialogRef = this.dialog.open(TransactionModalComponent, {
-      width: '75%',
+      width: '65%',
       data: row
     });
 
