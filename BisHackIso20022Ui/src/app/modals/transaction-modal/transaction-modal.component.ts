@@ -27,10 +27,11 @@ export class TransactionModalComponent {
   swiftValidationBAF;
   swiftValidationSAF;
 
-  swiftValidationScore;
-  swiftComplianceScore;
-  internalComplianceScore;
-  internalTranHistScore;
+  swiftValidationReason;
+  swiftComplianceReason;
+  internalComplianceReason;
+  internalTranHistReason;
+  overallReason;
   overallScore;
 
   riskRecommendation;
@@ -44,6 +45,8 @@ export class TransactionModalComponent {
       console.log(res);
       this.responseData = res;
 
+      /*this.responseData = {riskRatingDetails:[{category:"SWIFT_VALIDATION",score:1,reason:"SWIFT:  Payment Details are Valid"},{category:"SWIFT_COMPLIANCE",score:2,reason:"SWIFT: Compliance Risk is LOW"},{category:"INTERNAL_COMPLIANCE",score:2,reason:"Internal Compliance Risk is LOW"},{category:"INTERNAL_TRX_HIST",score:4,reason:"Internal Transaction Audit Risk is LOW"},{category:"OVERALL_SCORE",score:2,reason:"Aggregate Risk is LOW - PROCEED"}],riskRecommendation:"PROCEED",mlModelInput:{trxRatingModelRequestDtos:[{category:"CURRENT_TRX",attrName:"BENEFICIARY_AC",value:"500105170123456789"},{category:"CURRENT_TRX",attrName:"SRC_AC",value:"123110040000109876543210"},{category:"CURRENT_TRX",attrName:"AMOUNT",value:"1500"},{category:"INTERNAL_COMPLIANCE",attrName:"HIGH_RISK_BENE_CNTRY",value:"BA,BB"},{category:"INTERNAL_TRX_HIST",attrName:"SRC_AVG_TRX_AMOUNT",value:"1500"},{category:"INTERNAL_TRX_HIST",attrName:"SRC_TOTAL_TRX_AMOUNT",value:"100000"},{category:"SWIFT_COMPLIANCE",attrName:"BENEFICIARY_AC_VERIFICATION",value:"LOW"},{category:"SWIFT_COMPLIANCE",attrName:"SRC_AC_VERIFICATION",value:"LOW"},{category:"SWIFT_VALIDATION",attrName:"BENEFICIARY_AC_FORMAT",value:"LOW"},{category:"SWIFT_VALIDATION",attrName:"SRC_AC_FORMAT",value:"LOW"}]}}
+      */
       this.riskRecommendation = this.responseData.riskRecommendation;
       this.responseData.mlModelInput.trxRatingModelRequestDtos.forEach(element => {
         if(element.category == "CURRENT_TRX" && element.attrName == "BENEFICIARY_AC")
@@ -92,22 +95,23 @@ export class TransactionModalComponent {
       this.responseData.riskRatingDetails.forEach(element => {
         if(element.category == "SWIFT_VALIDATION")
         {
-          this.swiftValidationScore = element.score;
+          this.swiftValidationReason = element.reason;
         }
         if(element.category == "SWIFT_COMPLIANCE")
         {
-          this.swiftComplianceScore = element.score;
+          this.swiftComplianceReason = element.reason;
         }
         if(element.category == "INTERNAL_COMPLIANCE")
         {
-          this.internalComplianceScore = element.score;
+          this.internalComplianceReason = element.reason;
         }
         if(element.category == "INTERNAL_TRX_HIST")
         {
-          this.internalTranHistScore = element.score;
+          this.internalTranHistReason = element.reason;
         }
         if(element.category == "OVERALL_SCORE")
         {
+          this.overallReason = element.reason;
           this.overallScore = element.score;
         }
       });
