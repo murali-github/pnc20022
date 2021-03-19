@@ -1,20 +1,23 @@
-<div class="d-flex justify-content-center">
+﻿<div class="d-flex justify-content-center">
   <b>Genuine-ness™ Score : </b> {{overallScore}} ({{overallReason}})
 </div>
 <hr>
 <div class="d-flex justify-content-center">
   <h5>Rating Breakdown:</h5>
 </div>
+
 <table>
   <tr>
-    <td><b>Swift Compliance :</b> {{swiftComplianceReason}}</td>
-    <td><b>Swift Validation :</b> {{swiftValidationReason}}</td>
+    <td><b>Swift Compliance :</b> {{swiftComplianceScore}}</td>
+    <td><b>Swift Validation :</b> {{swiftValidationScore}}</td>
   </tr>
   <tr>
-    <td><b>Internal Trx History :</b> {{internalTranHistReason}}</td>
-    <td><b>Internal Compliance :</b> {{internalComplianceReason}}</td>
+    <td><b>Internal Trx History :</b> {{internalTranHistScore}}</td>
+    <td><b>Internal Compliance :</b> {{internalComplianceScore}}</td>
   </tr>
 </table>
+
+
 
 <div class="d-flex justify-content-center" *ngIf="loading==true">
   <mat-spinner></mat-spinner>
@@ -24,7 +27,19 @@
 <div class="d-flex justify-content-center">
   <h5>Rating Reasons:</h5>
 </div>
+
 <table>
+  <tr>
+    <td>{{swiftComplianceReason}}</td>
+    <td>{{swiftValidationReason}}</td>
+  </tr>
+  <tr>
+    <td>{{internalTranHistReason}}</td>
+    <td>{{internalComplianceReason}}</td>
+  </tr>
+</table>
+
+<!--table>
   <tr>
     <td><b>Current Transaction Beneficiary Account :</b> {{currentTrxBen}}</td>
     <td><b>High Risk Countries :</b> {{internalComplianceHRBC}}</td>
@@ -41,11 +56,11 @@
     <td></td>
     <td><b>Total Transaction :</b> {{internalTranHistSTTA}}</td>
   </tr>
-</table>
+</table-->
 
 <hr>
 
-<table>
+<!--table>
   <tr>
     <td><b>Swift Beneficiary Account Verification :</b> {{swiftComplianceBAV}} </td>
     <td><b>Swift Beneficiary Account Format :</b> {{swiftValidationBAF}}</td>
@@ -54,7 +69,7 @@
     <td><b>Swift Source Account Verification :</b> {{swiftComplianceSAV}}</td>
     <td><b>Swift Source Account Format :</b> {{swiftValidationSAF}}</td>
   </tr>
-</table>
+</table-->
 
 
 <br>

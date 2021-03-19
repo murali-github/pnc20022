@@ -31,6 +31,12 @@ export class TransactionModalComponent {
   swiftComplianceReason;
   internalComplianceReason;
   internalTranHistReason;
+
+swiftValidationScore;
+  swiftComplianceScore;
+  internalComplianceScore;
+  internalTranHistScore;
+
   overallReason;
   overallScore;
 
@@ -98,18 +104,22 @@ export class TransactionModalComponent {
         if(element.category == "SWIFT_VALIDATION")
         {
           this.swiftValidationReason = element.reason;
+this.swiftValidationScore = element.score;
         }
         if(element.category == "SWIFT_COMPLIANCE")
         {
           this.swiftComplianceReason = element.reason;
+this.swiftComplianceScore = element.score;
         }
         if(element.category == "INTERNAL_COMPLIANCE")
         {
           this.internalComplianceReason = element.reason;
+this.internalComplianceScore = element.score;
         }
         if(element.category == "INTERNAL_TRX_HIST")
         {
           this.internalTranHistReason = element.reason;
+this.internalTranHistScore = element.score;
         }
         if(element.category == "OVERALL_SCORE")
         {
